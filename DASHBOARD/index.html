@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard Finansial | Cerdas Finansial</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+         :root {
+            --primary-1: #f35b04;
+            --primary-2: #ed8a07;
+            --accent: #f35b04;
+            --muted: #6b7280;
+            --card-shadow: 0 10px 30px rgba(12, 18, 40, 0.06);
+            --glass: rgba(255, 255, 255, 0.6);
+            --sidebar-width: 260px;
+        }
+        
+        html,
+        body {
+            height: 100%;
+        }
+        
+        body {
+            margin: 0;
+            min-height: 100%;
+            background-color: white !important;
+            font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            color: #0f1724;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-bottom: 48px;
+        }
+        
+        .app-shell {
+            display: flex;
+            gap: 24px;
+        }
+        
+        aside.sidebar {
+            width: var(--sidebar-width);
+            min-height: 100vh;
+            background: #fff;
+            box-shadow: 0 6px 30px rgba(12, 18, 40, 0.06);
+            border-radius: 12px;
+            padding: 18px;
+            position: sticky;
+            top: 16px;
+            align-self: flex-start;
+        }
+        
+        .sidebar .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #0b1220;
+            margin-bottom: 18px;
+        }
+        
+        .sidebar .logo {
+            height: 44px;
+            width: 44px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--primary-1), var(--primary-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+            font-size: 18px;
+        }
+        
+        .nav-menu {
+            margin-top: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .nav-menu a {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 10px 12px;
+            border-radius: 10px;
+            color: #0b1220;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .nav-menu a.active,
+        .nav-menu a:hover {
+            background: linear-gradient(90deg, rgba(0, 200, 151, 0.08), rgba(0, 162, 255, 0.06));
+            color: var(--primary-2);
+        }
+        
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        
+        .user-block {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f97316, #ef4444);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+        }
+        
+        .btn-logout {
+            border: 1px solid rgba(12, 18, 40, 0.06);
+            background: #fff;
+            color: #111827;
+            padding: 8px 10px;
+            border-radius: 10px;
+        }
+        
+        main.container-main {
+            max-width: 980px;
+            margin: 28px auto;
+            padding: 0 18px;
+            flex: 1;
+        }
+        
+        h1.page-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        
+        p.lead {
+            color: var(--muted);
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+        
+        .top-cards-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+        
+        .stat-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--card-shadow);
+            border: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .stat-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .avatar-text {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #111827;
+        }
+        
+        .avatar-text.bg-gray-200 {
+            background: #f3f4f6;
+        }
+        
+        .stat-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #0b1220;
+        }
+        
+        .stat-sub {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+        
+        .edit-card {
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        .stat-value {
+            font-weight: 700;
+            color: #111827;
+            font-size: 14px;
+        }
+        
+        .stat-progress {
+            height: 8px;
+            background: #f1f5f9;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        
+        .stat-progress .progress-bar {
+            height: 100%;
+            transition: width 700ms cubic-bezier(.2, .9, .2, 1);
+        }
+        
+        .card-compact {
+            border-radius: 12px;
+            padding: 16px;
+            background: #fff;
+            box-shadow: var(--card-shadow);
+            border: 0;
+        }
+        
+        .card-compact h6 {
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 14px;
+        }
+        
+        .btn-primary-ghost {
+            background: linear-gradient(135deg, var(--primary-1), var(--primary-2));
+            color: #fff;
+            border: 0;
+            border-radius: 10px;
+            padding: 9px 14px;
+            font-weight: 700;
+        }
+        
+        .saldo-card {
+            border-radius: 14px;
+            padding: 22px;
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary-1), var(--primary-2));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .saldo-card small {
+            opacity: .95;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        
+        .saldo-amount {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: .3px;
+        }
+        
+        .result-card {
+            min-width: 240px;
+            flex: 1 1 320px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), #fff);
+            border-radius: 12px;
+            margin: 10px 0;
+            padding: 12px;
+            box-shadow: var(--card-shadow);
+            transform: translateY(6px);
+            opacity: 0;
+            transition: all .45s cubic-bezier(.2, .9, .2, 1);
+        }
+        
+        .result-card.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .muted {
+            color: var(--muted);
+            font-size: 13px;
+        }
+        
+        footer {
+            text-align: center;
+            color: #6b7280;
+            margin-top: 28px;
+            font-size: 13px;
+        }
+        
+        .mobile-top {
+            display: none;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .hamburger {
+            border: 0;
+            background: transparent;
+            padding: 6px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @media (max-width: 1100px) {
+            .top-cards-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            aside.sidebar {
+                display: none;
+            }
+            main.container-main {
+                max-width: 1000px;
+                margin-left: 18px;
+                margin-right: 18px;
+            }
+            .mobile-top {
+                display: flex;
+            }
+            .d-none.d-md-flex {
+                display: none !important;
+            }
+            .d-none.d-md-inline-flex {
+                display: none !important;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .top-cards-row {
+                grid-template-columns: 1fr;
+            }
+            .user-avatar {
+                width: 36px;
+                height: 36px;
+            }
+            .logo {
+                height: 36px;
+                width: 36px;
+            }
+            main.container-main {
+                margin: 18px 12px;
+                padding: 0 8px;
+            }
+            .saldo-amount {
+                font-size: 20px;
+            }
+            .breakdown .cat-row {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            .breakdown .cat-bar {
+                text-align: left;
+            }
+        }
+        
+        .breakdown {
+            margin-top: 12px;
+        }
+        
+        .breakdown .cat-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 12px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 8px;
+        }
+        
+        .breakdown .cat-title {
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        .breakdown .bar-base {
+            height: 8px;
+            background: #f3f4f6;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        
+        .breakdown .bar-fill {
+            height: 8px;
+            width: 0%;
+            transition: width 600ms cubic-bezier(.2, .9, .2, 1);
+        }
+        
+        .mini-list,
+        .rec-list {
+            padding-left: 18px;
+            margin: 0;
+            font-size: 14px;
+            color: #111827;
+        }
+        
+        .rec-list .rec-item {
+            margin-bottom: 6px;
+        }
+        
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 450px;
+            background: #ffffff;
+            border-radius: 30px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            z-index: 99;
+            border: 1px solid #ddd;
+        }
+        
+        .mobile-bottom-nav a {
+            color: black;
+            text-align: center;
+            flex: 1;
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-bottom-nav a i {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .mobile-bottom-nav a.active {
+            color: #f35b04;
+        }
+        
+        .mobile-bottom-nav a:hover {
+            color: #f35b04;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-bottom-nav {
+                display: flex;
+            }
+            .sembunyi {
+                display: none;
+            }
+        }
+        
+        .btn.btn-primary-ghost:hover {
+            color: white;
+        }
+        
+        @media (max-width: 992px) {
+            .logosidebar {
+                display: none !important;
+            }
+            .mobile-top img,
+            .sidebar img {
+                display: none !important;
+            }
+            .sidebar {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid" style="padding:18px 18px;">
+        <div class="app-shell">
+            <aside class="sidebar" id="desktopSidebar">
+                <img src="../assets/media/logo.png" alt="Logo Cerdas Finansial" class="logosidebar" style="height: 36px; object-fit: contain;">
+                <nav class="nav-menu" aria-label="Main navigation">
+                    <a href="#" class="active"><i data-feather="home"></i> Dashboard</a>
+                </nav>
+            </aside>
+
+            <div style="flex:1;">
+                <div class="d-flex align-items-start justify-content-between top-bar">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="mobile-top">
+
+                            <a class="sidebar-brand d-inline-flex align-items-center" href="../index.html">
+                                <div class="d-none d-sm-block">
+                                    <img src="../assets/media/logo.png" alt="Logo Cerdas Finansial" style="height: 36px; object-fit: contain;">
+                                </div>
+                            </a>
+                        </div>
+
+
+                        <div>
+                            <a href="../index.html" style="display: inline-block;">
+                                <img src="../assets/media/logo.png" alt="Logo Cerdas Finansial" style="height: 36px; object-fit: contain;">
+                            </a>
+                            <div class="muted" id="todayTxtTop"></div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="user-block">
+                        <div class="d-none d-md-flex muted align-items-center">
+                            <button id="helpBtnTop" class="btn btn-outline-secondary btn-sm me-2" type="button" aria-label="Bantuan"><i data-feather="help-circle"></i></button>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+
+                            <button id="logoutBtn" class="btn-logout d-none d-md-inline-flex align-items-center"><i data-feather="log-out" style="margin-right:8px;"></i> Logout</button>
+                        </div>
+                    </div>
+                </div>
+
+                <main class="container-main">
+                    <section class="saldo-card mb-4">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                            <div>
+                                <small>Saldo Anda Saat Ini</small>
+                                <div class="saldo-amount" id="saldo-big">Rp 0</div>
+                            </div>
+
+                            <div class="text-end" style="min-width:220px;">
+                                <div class="d-flex gap-2 mt-2 justify-content-end">
+                                    <input id="saldo-input" inputmode="numeric" placeholder="Masukkan Saldo Anda" class="form-control rupiah-input" style="max-width:220px;">
+                                    <button class="btn btn-light" id="aturSaldoBtn" type="button">Atur</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="top-cards-row" aria-label="Statistik Cepat">
+                        <div class="stat-card">
+                            <div class="stat-head">
+                                <div class="d-flex gap-3 align-items-center">
+                                    <div class="avatar-text avatar-lg bg-gray-200">
+                                        <i data-feather="dollar-sign"></i>
+                                    </div>
+                                    <div>
+                                        <div class="stat-title">Dompet</div>
+                                        <div class="stat-sub">Saldo Saat Ini</div>
+                                    </div>
+                                </div>
+                                <a href="javascript:void(0);" class="edit-card" data-key="wallet" title="Edit Dompet">
+                                    <i data-feather="edit"></i>
+                                </a>
+                            </div>
+
+                            <div class="pt-3">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="muted fs-12">Saldo</div>
+                                    <div class="stat-value text-end" id="val-wallet">Rp 0</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-head">
+                                <div class="d-flex gap-3 align-items-center">
+                                    <div class="avatar-text avatar-lg bg-gray-200">
+                                        <i data-feather="box"></i>
+                                    </div>
+                                    <div>
+                                        <div class="stat-title">Tabungan</div>
+                                        <div class="stat-sub">Saldo Tabungan</div>
+                                    </div>
+                                </div>
+                                <a href="javascript:void(0);" class="edit-card" data-key="savings" title="Edit Tabungan">
+                                    <i data-feather="edit"></i>
+                                </a>
+                            </div>
+
+                            <div class="pt-3">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="muted fs-12">Tabungan</div>
+                                    <div class="stat-value text-end" id="val-savings">Rp 0</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-head">
+                                <div class="d-flex gap-3 align-items-center">
+                                    <div class="avatar-text avatar-lg bg-gray-200">
+                                        <i data-feather="arrow-down-circle"></i>
+                                    </div>
+                                    <div>
+                                        <div class="stat-title">Pengeluaran</div>
+                                        <div class="stat-sub">Pengeluaran Bulan Ini</div>
+                                    </div>
+                                </div>
+                                <a href="javascript:void(0);" class="edit-card" data-key="expenses" title="Edit Pengeluaran">
+                                    <i data-feather="edit"></i>
+                                </a>
+                            </div>
+
+                            <div class="pt-3">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="muted fs-12">Pengeluaran</div>
+                                    <div class="stat-value text-end" id="val-expenses">Rp 0</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-head">
+                                <div class="d-flex gap-3 align-items-center">
+                                    <div class="avatar-text avatar-lg bg-gray-200">
+                                        <i data-feather="target"></i>
+                                    </div>
+                                    <div>
+                                        <div class="stat-title">Target</div>
+                                        <div class="stat-sub">Target Tabungan</div>
+                                    </div>
+                                </div>
+                                <a href="javascript:void(0);" class="edit-card" data-key="target" title="Edit Target">
+                                    <i data-feather="edit"></i>
+                                </a>
+                            </div>
+
+                            <div class="pt-3">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="muted fs-12">Target</div>
+                                    <div class="stat-value text-end" id="val-target">Rp 0</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+
+
+
+
+
+                    <div style="height:8px"></div>
+
+                    <footer>© <span id="yearHolder"></span> All Rights Reserved Cerdas Finansial. Dibuat Oleh Skinfa Developers</footer>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-bottom-nav">
+        <a href="../index.html" data-name="home"> <i class="fa-solid fa-house"></i> <span>Home</span> </a>
+        <a href="../fitur-detail-1.html" data-name="fitur">
+            <i class="fa-solid fa-puzzle-piece"></i>
+            <span>Fitur</span>
+        </a>
+        <a href="index.html" class="active" id="dashboard-link" data-name="dashboard">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="../login.html" data-name="akun"> <i class="fa-solid fa-user"></i> <span>Akun</span> </a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+        document.querySelectorAll('i[data-feather]').forEach(el => {
+            feather.replace({
+                class: 'feather-icon'
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
