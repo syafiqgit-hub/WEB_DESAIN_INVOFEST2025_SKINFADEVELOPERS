@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root {
+         :root {
             --primary-color: #f35b04;
             --secondary-color: #ed8a07;
             --bg-color: #f8f9fa;
@@ -17,23 +18,23 @@
             --text-color: #333333;
             --text-muted: #666666;
             --border-color: #e9ecef;
-            --shadow: rgba(0,0,0,0.1);
+            --shadow: rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
         }
-
+        
         [data-theme="dark"] {
             --bg-color: #1a1a1a;
             --card-bg: #2d2d2d;
             --text-color: #ffffff;
             --text-muted: #cccccc;
             --border-color: #404040;
-            --shadow: rgba(0,0,0,0.3);
+            --shadow: rgba(0, 0, 0, 0.3);
         }
-
+        
         * {
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
@@ -43,7 +44,7 @@
             padding: 0;
             overflow-x: hidden;
         }
-
+        
         .sidebar {
             position: fixed;
             top: 0;
@@ -58,30 +59,30 @@
             z-index: 1000;
             box-shadow: 2px 0 10px var(--shadow);
         }
-
+        
         .sidebar.show {
             transform: translateX(0);
         }
-
+        
         .sidebar-header {
             text-align: center;
             margin-bottom: 30px;
         }
-
+        
         .sidebar-header h3 {
             font-weight: 700;
             margin-bottom: 5px;
         }
-
+        
         .sidebar-nav {
             list-style: none;
             padding: 0;
         }
-
+        
         .sidebar-nav li {
             margin-bottom: 10px;
         }
-
+        
         .sidebar-nav a {
             color: white;
             text-decoration: none;
@@ -90,11 +91,11 @@
             border-radius: 5px;
             transition: var(--transition);
         }
-
+        
         .sidebar-nav a:hover {
-            background-color: rgba(255,255,255,0.1);
+            background-color: rgba(255, 255, 255, 0.1);
         }
-
+        
         .sidebar-toggle {
             position: fixed;
             top: 20px;
@@ -113,26 +114,26 @@
             box-shadow: 0 2px 10px var(--shadow);
             transition: var(--transition);
         }
-
+        
         .sidebar-toggle:hover {
             transform: scale(1.1);
         }
-
+        
         .main-content {
             margin-left: 0;
             transition: var(--transition);
         }
-
+        
         .main-content.shifted {
             margin-left: 250px;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-
+        
         .hero {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
@@ -143,19 +144,19 @@
             box-shadow: 0 5px 20px var(--shadow);
             animation: fadeInUp 0.8s ease-out;
         }
-
+        
         .hero h1 {
             font-size: 2.5rem;
             margin-bottom: 15px;
             font-weight: 700;
         }
-
+        
         .hero p {
             font-size: 1.2rem;
             opacity: 0.9;
             margin-bottom: 30px;
         }
-
+        
         .progress-section {
             display: flex;
             justify-content: space-between;
@@ -163,24 +164,24 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-
+        
         .progress-item {
             flex: 1;
             min-width: 200px;
         }
-
+        
         .progress {
             height: 10px;
-            background-color: rgba(255,255,255,0.3);
+            background-color: rgba(255, 255, 255, 0.3);
             border-radius: 5px;
             overflow: hidden;
         }
-
+        
         .progress-bar {
             background: white;
             transition: width 0.5s ease;
         }
-
+        
         .card {
             border: none;
             border-radius: 15px;
@@ -190,12 +191,12 @@
             transition: var(--transition);
             animation: fadeInUp 0.8s ease-out;
         }
-
+        
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px var(--shadow);
         }
-
+        
         .card-header {
             background: var(--card-bg);
             border-bottom: 1px solid var(--border-color);
@@ -204,27 +205,27 @@
             border-radius: 15px 15px 0 0 !important;
             font-size: 1.1rem;
         }
-
+        
         .stat-card {
             text-align: center;
             padding: 25px;
             height: 100%;
         }
-
+        
         .stat-card .card-body {
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
         }
-
+        
         .stat-value {
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary-color);
             margin-top: 10px;
         }
-
+        
         .btn-custom {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border: none;
@@ -234,43 +235,43 @@
             font-weight: 500;
             transition: var(--transition);
         }
-
+        
         .btn-custom:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(243, 91, 4, 0.3);
             color: white;
         }
-
+        
         .chart-container {
             height: 300px;
             margin: 25px 0;
         }
-
+        
         #chart {
             margin-top: 24px;
             margin-bottom: 30px;
         }
-
+        
         .input-group {
             margin-bottom: 15px;
         }
-
+        
         .input-group .form-control {
             border-radius: 8px 0 0 8px;
             border: 1px solid var(--border-color);
             padding: 10px 15px;
             transition: var(--transition);
         }
-
+        
         .input-group .form-control:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.2rem rgba(243, 91, 4, 0.25);
         }
-
+        
         .input-group .btn-custom {
             border-radius: 0 8px 8px 0;
         }
-
+        
         .notification {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -279,11 +280,11 @@
             margin-bottom: 15px;
             transition: var(--transition);
         }
-
+        
         .notification:hover {
             box-shadow: 0 2px 10px var(--shadow);
         }
-
+        
         .dark-mode-toggle {
             position: fixed;
             top: 20px;
@@ -301,11 +302,11 @@
             box-shadow: 0 2px 10px var(--shadow);
             transition: var(--transition);
         }
-
+        
         .dark-mode-toggle:hover {
             transform: scale(1.1);
         }
-
+        
         footer {
             text-align: center;
             padding: 30px;
@@ -313,7 +314,7 @@
             font-size: 0.95rem;
             margin-top: 50px;
         }
-
+        
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -324,66 +325,62 @@
                 transform: translateY(0);
             }
         }
-
+        
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
                 transform: translateX(-100%);
             }
-
             .main-content.shifted {
                 margin-left: 0;
             }
-
             .hero h1 {
                 font-size: 2rem;
             }
-
             .hero p {
                 font-size: 1rem;
             }
-
             .progress-section {
                 flex-direction: column;
                 align-items: stretch;
             }
-
             .stat-card .card-body {
                 flex-direction: row;
                 text-align: left;
             }
-
             .stat-value {
                 margin-top: 0;
                 margin-left: 15px;
             }
-
             .chart-container {
                 height: 250px;
             }
         }
-
+        
         @media (min-width: 769px) {
             .sidebar-toggle {
                 display: none;
             }
-
             .sidebar {
                 transform: translateX(0);
             }
-
             .main-content {
                 margin-left: 250px;
             }
         }
-
+        
         @media (min-width: 992px) {
             .sidebar-toggle {
                 display: none;
             }
         }
+        
+        #greeting {
+            text-align: left;
+        }
     </style>
 </head>
+
 <body>
     <button class="sidebar-toggle" id="sidebar-toggle">
         <i class="fas fa-bars"></i>
@@ -395,8 +392,8 @@
 
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h3>Cerdas Finansial</h3>
-            <p>Dashboard Navigasi</p>
+            <h3 style="text-align: left;">Cerdas Finansial</h3>
+            <p style="text-align: left;">Dashboard Navigasi</p>
         </div>
         <ul class="sidebar-nav">
             <li><a href="#hero"><i class="fas fa-home"></i> Dashboard</a></li>
@@ -413,422 +410,425 @@
 
     <div class="main-content" id="main-content">
         <div class="container my-4">
-        <div class="hero" id="hero">
-            <h1 id="greeting">Selamat Datang di Dashboard Finansial!</h1>
-            <p>Kelola keuanganmu dengan cerdas hari ini 💰</p>
-            <div class="progress-section">
-                <div class="progress-item">
-                    <strong>Progress Belajar:</strong>
-                    <div class="progress mt-2">
-                        <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+            <div class="hero" id="hero">
+                <h1 id="greeting">Selamat Datang di Dashboard Finansial!</h1>
+                <p style="text-align: left;">Kelola keuanganmu dengan cerdas hari ini 💰</p>
+                <div class="progress-section">
+                    <div class="progress-item">
+                        <strong>Progress Belajar:</strong>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                        </div>
+                        <small id="progress-text">0% selesai</small>
                     </div>
-                    <small id="progress-text">0% selesai</small>
-                </div>
-                <div class="progress-item">
-                    <strong>Financial IQ Score: <span id="iq-score">0</span></strong>
+                    <div class="progress-item">
+                        <strong>Financial IQ Score: <span id="iq-score">0</span></strong>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="card" id="financial-data">
-            <div class="card-header">Data Finansial Anda</div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <label>Saldo Dompet</label>
-                        <div class="input-group">
-                            <input type="text" id="wallet-input" class="form-control" placeholder="Rp 0">
-                            <button class="btn btn-custom" onclick="updateData('wallet')">Update</button>
+            <div class="card" id="financial-data">
+                <div class="card-header">Data Finansial Anda</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Saldo Dompet</label>
+                            <div class="input-group">
+                                <input type="text" id="wallet-input" class="form-control" placeholder="Rp 0">
+                                <button class="btn btn-custom" onclick="updateData('wallet')">Update</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Tabungan Saat Ini</label>
-                        <div class="input-group">
-                            <input type="text" id="savings-input" class="form-control" placeholder="Rp 0">
-                            <button class="btn btn-custom" onclick="updateData('savings')">Update</button>
+                        <div class="col-md-3">
+                            <label>Tabungan Saat Ini</label>
+                            <div class="input-group">
+                                <input type="text" id="savings-input" class="form-control" placeholder="Rp 0">
+                                <button class="btn btn-custom" onclick="updateData('savings')">Update</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Pengeluaran Bulanan</label>
-                        <div class="input-group">
-                            <input type="text" id="expenses-input" class="form-control" placeholder="Rp 0">
-                            <button class="btn btn-custom" onclick="updateData('expenses')">Update</button>
+                        <div class="col-md-3">
+                            <label>Pengeluaran Bulanan</label>
+                            <div class="input-group">
+                                <input type="text" id="expenses-input" class="form-control" placeholder="Rp 0">
+                                <button class="btn btn-custom" onclick="updateData('expenses')">Update</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Target Keuangan</label>
-                        <div class="input-group">
-                            <input type="text" id="target-input" class="form-control" placeholder="Rp 0">
-                            <button class="btn btn-custom" onclick="updateData('target')">Update</button>
+                        <div class="col-md-3">
+                            <label>Target Keuangan</label>
+                            <div class="input-group">
+                                <input type="text" id="target-input" class="form-control" placeholder="Rp 0">
+                                <button class="btn btn-custom" onclick="updateData('target')">Update</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row" id="stats">
-            <div class="col-md-3">
-                <div class="card stat-card">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fas fa-wallet fa-2x text-primary me-3"></i>
-                        <div>
-                            <h5>Dompet</h5>
-                            <div class="stat-value" id="wallet">Rp 0</div>
+            <div class="row" id="stats">
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fas fa-wallet fa-2x text-primary me-3"></i>
+                            <div>
+                                <h5>Dompet</h5>
+                                <div class="stat-value" id="wallet">Rp 0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fas fa-piggy-bank fa-2x text-success me-3"></i>
+                            <div>
+                                <h5>Tabungan</h5>
+                                <div class="stat-value" id="savings">Rp 0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fas fa-credit-card fa-2x text-danger me-3"></i>
+                            <div>
+                                <h5>Pengeluaran</h5>
+                                <div class="stat-value" id="expenses">Rp 0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="card-body d-flex align-items-center">
+                            <i class="fas fa-bullseye fa-2x text-warning me-3"></i>
+                            <div>
+                                <h5>Target</h5>
+                                <div class="stat-value" id="target">Rp 0</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card stat-card">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fas fa-piggy-bank fa-2x text-success me-3"></i>
-                        <div>
-                            <h5>Tabungan</h5>
-                            <div class="stat-value" id="savings">Rp 0</div>
+
+            <div class="card" id="chart">
+                <div class="card-header"><i class="fas fa-chart-bar"></i> Grafik Pengeluaran vs Pemasukan</div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="tips">
+                <div class="card-header"><i class="fas fa-lightbulb"></i> Tips Finansial Hari Ini</div>
+                <div class="card-body">
+                    <p id="daily-tip">Catat semua pengeluaranmu setiap hari biar bisa evaluasi keuangan mingguan!</p>
+                </div>
+            </div>
+
+            <div class="card" id="goals">
+                <div class="card-header"><i class="fas fa-bullseye"></i> Target Keuangan Pribadi</div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <strong>Liburan Tahunan: </strong><span id="vacation-progress">75%</span>
+                        <div class="progress mt-1">
+                            <div class="progress-bar" style="width: 75%"></div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card stat-card">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fas fa-credit-card fa-2x text-danger me-3"></i>
-                        <div>
-                            <h5>Pengeluaran</h5>
-                            <div class="stat-value" id="expenses">Rp 0</div>
+                    <div class="mb-3">
+                        <strong>Dana Darurat: </strong><span id="emergency-progress">60%</span>
+                        <div class="progress mt-1">
+                            <div class="progress-bar" style="width: 60%"></div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card stat-card">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="fas fa-bullseye fa-2x text-warning me-3"></i>
-                        <div>
-                            <h5>Target</h5>
-                            <div class="stat-value" id="target">Rp 0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card" id="chart">
-            <div class="card-header"><i class="fas fa-chart-bar"></i> Grafik Pengeluaran vs Pemasukan</div>
-            <div class="card-body">
-                <div class="chart-container">
-                    <canvas id="financeChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="card" id="tips">
-            <div class="card-header"><i class="fas fa-lightbulb"></i> Tips Finansial Hari Ini</div>
-            <div class="card-body">
-                <p id="daily-tip">Catat semua pengeluaranmu setiap hari biar bisa evaluasi keuangan mingguan!</p>
-            </div>
-        </div>
-
-        <div class="card" id="goals">
-            <div class="card-header"><i class="fas fa-bullseye"></i> Target Keuangan Pribadi</div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <strong>Liburan Tahunan: </strong><span id="vacation-progress">75%</span>
-                    <div class="progress mt-1">
-                        <div class="progress-bar" style="width: 75%"></div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <strong>Dana Darurat: </strong><span id="emergency-progress">60%</span>
-                    <div class="progress mt-1">
-                        <div class="progress-bar" style="width: 60%"></div>
-                    </div>
-                </div>
-                <div>
-                    <strong>Investasi Jangka Panjang: </strong><span id="investment-progress">45%</span>
-                    <div class="progress mt-1">
-                        <div class="progress-bar" style="width: 45%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card" id="learning">
-            <div class="card-header"><i class="fas fa-book"></i> Topik Terakhir yang Dipelajari</div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 id="last-topic-title">Dasar Pengelolaan Keuangan</h6>
-                        <p class="mb-0" id="last-topic-desc">Pelajari cara mengatur budget harian dan bulanan</p>
-                    </div>
-                    <button class="btn btn-custom" id="continue-learning">Lanjut Belajar</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card" id="recommendations">
-            <div class="card-header">Artikel / Video Rekomendasi</div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="d-flex align-items-start mb-3">
-                            <i class="fas fa-book fa-2x text-primary me-3"></i>
-                            <div>
-                                <h6>5 Cara Mengatur Uang Saku Siswa</h6>
-                                <p>Tips praktis untuk mengelola uang saku secara bijak</p>
-                                <small class="text-primary">Baca Artikel →</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="d-flex align-items-start mb-3">
-                            <i class="fas fa-play-circle fa-2x text-success me-3"></i>
-                            <div>
-                                <h6>Cara Menabung Efektif Buat Pelajar</h6>
-                                <p>Strategi menabung yang mudah diikuti pemula</p>
-                                <small class="text-success">Tonton Video →</small>
-                            </div>
+                        <strong>Investasi Jangka Panjang: </strong><span id="investment-progress">45%</span>
+                        <div class="progress mt-1">
+                            <div class="progress-bar" style="width: 45%"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="card" id="notifications">
-            <div class="card-header">Notifikasi / Pengumuman</div>
-            <div class="card-body">
-                <div class="notification">
-                    <i class="fas fa-bell text-warning"></i> Kuis Keuangan Mingguan dimulai hari Jumat ini!
-                    <small class="text-muted d-block">2 hari lalu</small>
+            <div class="card" id="learning">
+                <div class="card-header"><i class="fas fa-book"></i> Topik Terakhir yang Dipelajari</div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 id="last-topic-title">Dasar Pengelolaan Keuangan</h6>
+                            <p class="mb-0" id="last-topic-desc">Pelajari cara mengatur budget harian dan bulanan</p>
+                        </div>
+                        <button class="btn btn-custom" id="continue-learning">Lanjut Belajar</button>
+                    </div>
                 </div>
-                <div class="notification">
-                    <i class="fas fa-star text-success"></i> Ada topik baru: Dasar Investasi untuk Pemula 💡
-                    <small class="text-muted d-block">1 minggu lalu</small>
+            </div>
+
+            <div class="card" id="recommendations">
+                <div class="card-header">Artikel / Video Rekomendasi</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="fas fa-book fa-2x text-primary me-3"></i>
+                                <div>
+                                    <h6>5 Cara Mengatur Uang Saku Siswa</h6>
+                                    <p>Tips praktis untuk mengelola uang saku secara bijak</p>
+                                    <small class="text-primary">Baca Artikel →</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start mb-3">
+                                <i class="fas fa-play-circle fa-2x text-success me-3"></i>
+                                <div>
+                                    <h6>Cara Menabung Efektif Buat Pelajar</h6>
+                                    <p>Strategi menabung yang mudah diikuti pemula</p>
+                                    <small class="text-success">Tonton Video →</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="notifications">
+                <div class="card-header">Notifikasi / Pengumuman</div>
+                <div class="card-body">
+                    <div class="notification">
+                        <i class="fas fa-bell text-warning"></i> Kuis Keuangan Mingguan dimulai hari Jumat ini!
+                        <small class="text-muted d-block">2 hari lalu</small>
+                    </div>
+                    <div class="notification">
+                        <i class="fas fa-star text-success"></i> Ada topik baru: Dasar Investasi untuk Pemula 💡
+                        <small class="text-muted d-block">1 minggu lalu</small>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <footer>
-        © 2025 All Rights Reserved Cerdas Finansial. Dibuat Oleh Skinfa Developers
-    </footer>
+        <footer>
+            © 2025 All Rights Reserved Cerdas Finansial. Dibuat Oleh Skinfa Developers
+        </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Format Rupiah
-        function formatRupiah(num) {
-            return 'Rp ' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        }
-
-        // Parse Rupiah
-        function parseRupiah(str) {
-            return parseInt(str.replace(/[^0-9]/g, '')) || 0;
-        }
-
-        // Daily tips array
-        const tips = [
-            "Catat semua pengeluaranmu setiap hari biar bisa evaluasi keuangan mingguan!",
-            "Tabung minimal 20% dari pendapatanmu setiap bulan.",
-            "Buat budget bulanan untuk menghindari pengeluaran berlebihan.",
-            "Investasikan sebagian tabungan di instrumen yang aman.",
-            "Pantau pengeluaran mingguan untuk kontrol yang lebih baik."
-        ];
-
-        // Dark mode functionality
-        function toggleDarkMode() {
-            const body = document.body;
-            const darkModeToggle = document.getElementById('dark-mode-toggle');
-            const icon = darkModeToggle.querySelector('i');
-
-            if (body.hasAttribute('data-theme')) {
-                body.removeAttribute('data-theme');
-                icon.className = 'fas fa-moon';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                icon.className = 'fas fa-sun';
-                localStorage.setItem('theme', 'dark');
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            // Format Rupiah
+            function formatRupiah(num) {
+                return 'Rp ' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             }
-        }
 
-        // Sidebar functionality
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('main-content');
-
-            sidebar.classList.toggle('show');
-            mainContent.classList.toggle('shifted');
-        }
-
-        // Smooth scrolling for sidebar navigation
-        function smoothScrollToSection(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
+            // Parse Rupiah
+            function parseRupiah(str) {
+                return parseInt(str.replace(/[^0-9]/g, '')) || 0;
             }
-            // Close sidebar on mobile after clicking
-            if (window.innerWidth <= 768) {
-                toggleSidebar();
+
+            // Daily tips array
+            const tips = [
+                "Catat semua pengeluaranmu setiap hari biar bisa evaluasi keuangan mingguan!",
+                "Tabung minimal 20% dari pendapatanmu setiap bulan.",
+                "Buat budget bulanan untuk menghindari pengeluaran berlebihan.",
+                "Investasikan sebagian tabungan di instrumen yang aman.",
+                "Pantau pengeluaran mingguan untuk kontrol yang lebih baik."
+            ];
+
+            // Dark mode functionality
+            function toggleDarkMode() {
+                const body = document.body;
+                const darkModeToggle = document.getElementById('dark-mode-toggle');
+                const icon = darkModeToggle.querySelector('i');
+
+                if (body.hasAttribute('data-theme')) {
+                    body.removeAttribute('data-theme');
+                    icon.className = 'fas fa-moon';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    icon.className = 'fas fa-sun';
+                    localStorage.setItem('theme', 'dark');
+                }
             }
-        }
 
-        // Load data
-        function loadData() {
-            const userName = localStorage.getItem('userName') || 'Pengguna';
-            const wallet = parseRupiah(localStorage.getItem('wallet') || '0');
-            const savings = parseRupiah(localStorage.getItem('savings') || '0');
-            const expenses = parseRupiah(localStorage.getItem('expenses') || '0');
-            const target = parseRupiah(localStorage.getItem('target') || '0');
-            const progress = parseInt(localStorage.getItem('learningProgress') || 0);
-            const iq = parseInt(localStorage.getItem('financialIQ') || 0);
+            // Sidebar functionality
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                const mainContent = document.getElementById('main-content');
 
-            document.getElementById('greeting').textContent = `Selamat datang, ${userName}! Hari ini kamu udah belajar cerdas finansial 💰`;
-            document.getElementById('wallet').textContent = formatRupiah(wallet);
-            document.getElementById('savings').textContent = formatRupiah(savings);
-            document.getElementById('expenses').textContent = formatRupiah(expenses);
-            document.getElementById('target').textContent = formatRupiah(target);
-            document.getElementById('progress-bar').style.width = progress + '%';
-            document.getElementById('progress-text').textContent = progress + '% selesai';
-            document.getElementById('iq-score').textContent = iq;
+                sidebar.classList.toggle('show');
+                mainContent.classList.toggle('shifted');
+            }
 
-            // Set input values
-            document.getElementById('wallet-input').value = formatRupiah(wallet);
-            document.getElementById('savings-input').value = formatRupiah(savings);
-            document.getElementById('expenses-input').value = formatRupiah(expenses);
-            document.getElementById('target-input').value = formatRupiah(target);
+            // Smooth scrolling for sidebar navigation
+            function smoothScrollToSection(sectionId) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+                // Close sidebar on mobile after clicking
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            }
 
-            // Random daily tip based on date
-            const today = new Date().toDateString();
-            const tipIndex = today.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % tips.length;
-            document.getElementById('daily-tip').textContent = tips[tipIndex];
+            // Load data
+            function loadData() {
+                const userName = localStorage.getItem('userName') || 'Pengguna';
+                const wallet = parseRupiah(localStorage.getItem('wallet') || '0');
+                const savings = parseRupiah(localStorage.getItem('savings') || '0');
+                const expenses = parseRupiah(localStorage.getItem('expenses') || '0');
+                const target = parseRupiah(localStorage.getItem('target') || '0');
+                const progress = parseInt(localStorage.getItem('learningProgress') || 0);
+                const iq = parseInt(localStorage.getItem('financialIQ') || 0);
 
-            updateChart(wallet + savings, expenses); // Assuming income is wallet + savings
-        }
+                document.getElementById('greeting').textContent = `Selamat datang, ${userName}! Hari ini kamu udah belajar cerdas finansial 💰`;
+                document.getElementById('wallet').textContent = formatRupiah(wallet);
+                document.getElementById('savings').textContent = formatRupiah(savings);
+                document.getElementById('expenses').textContent = formatRupiah(expenses);
+                document.getElementById('target').textContent = formatRupiah(target);
+                document.getElementById('progress-bar').style.width = progress + '%';
+                document.getElementById('progress-text').textContent = progress + '% selesai';
+                document.getElementById('iq-score').textContent = iq;
 
-        // Update chart with enhanced configuration
-        function updateChart(income, expenses) {
-            const ctx = document.getElementById('financeChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Pemasukan', 'Pengeluaran'],
-                    datasets: [{
-                        label: 'Jumlah (Rp)',
-                        data: [income, expenses],
-                        backgroundColor: [
-                            'rgba(40, 167, 69, 0.8)',
-                            'rgba(220, 53, 69, 0.8)'
-                        ],
-                        borderColor: [
-                            'rgba(40, 167, 69, 1)',
-                            'rgba(220, 53, 69, 1)'
-                        ],
-                        borderWidth: 2,
-                        borderRadius: 8,
-                        borderSkipped: false,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                            labels: {
-                                usePointStyle: true,
-                                padding: 20,
-                                font: {
-                                    size: 14,
-                                    weight: '500'
+                // Set input values
+                document.getElementById('wallet-input').value = formatRupiah(wallet);
+                document.getElementById('savings-input').value = formatRupiah(savings);
+                document.getElementById('expenses-input').value = formatRupiah(expenses);
+                document.getElementById('target-input').value = formatRupiah(target);
+
+                // Random daily tip based on date
+                const today = new Date().toDateString();
+                const tipIndex = today.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % tips.length;
+                document.getElementById('daily-tip').textContent = tips[tipIndex];
+
+                updateChart(wallet + savings, expenses); // Assuming income is wallet + savings
+            }
+
+            // Update chart with enhanced configuration
+            function updateChart(income, expenses) {
+                const ctx = document.getElementById('financeChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Pemasukan', 'Pengeluaran'],
+                        datasets: [{
+                            label: 'Jumlah (Rp)',
+                            data: [income, expenses],
+                            backgroundColor: [
+                                'rgba(40, 167, 69, 0.8)',
+                                'rgba(220, 53, 69, 0.8)'
+                            ],
+                            borderColor: [
+                                'rgba(40, 167, 69, 1)',
+                                'rgba(220, 53, 69, 1)'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8,
+                            borderSkipped: false,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20,
+                                    font: {
+                                        size: 14,
+                                        weight: '500'
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0,0,0,0.8)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                borderColor: 'rgba(255,255,255,0.1)',
+                                borderWidth: 1,
+                                cornerRadius: 8,
+                                displayColors: true,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + formatRupiah(context.parsed.y);
+                                    }
                                 }
                             }
                         },
-                        tooltip: {
-                            backgroundColor: 'rgba(0,0,0,0.8)',
-                            titleColor: '#fff',
-                            bodyColor: '#fff',
-                            borderColor: 'rgba(255,255,255,0.1)',
-                            borderWidth: 1,
-                            cornerRadius: 8,
-                            displayColors: true,
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + formatRupiah(context.parsed.y);
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: value => formatRupiah(value),
-                                font: {
-                                    size: 12
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: value => formatRupiah(value),
+                                    font: {
+                                        size: 12
+                                    }
+                                },
+                                grid: {
+                                    color: 'rgba(0,0,0,0.1)'
                                 }
                             },
-                            grid: {
-                                color: 'rgba(0,0,0,0.1)'
+                            x: {
+                                ticks: {
+                                    font: {
+                                        size: 14,
+                                        weight: '500'
+                                    }
+                                },
+                                grid: {
+                                    display: false
+                                }
                             }
                         },
-                        x: {
-                            ticks: {
-                                font: {
-                                    size: 14,
-                                    weight: '500'
-                                }
-                            },
-                            grid: {
-                                display: false
-                            }
+                        animation: {
+                            duration: 1000,
+                            easing: 'easeOutQuart'
                         }
-                    },
-                    animation: {
-                        duration: 1000,
-                        easing: 'easeOutQuart'
                     }
-                }
-            });
-        }
+                });
+            }
 
-        // Update data
-        function updateData(type) {
-            const input = document.getElementById(type + '-input');
-            const value = parseRupiah(input.value);
-            localStorage.setItem(type, value);
+            // Update data
+            function updateData(type) {
+                const input = document.getElementById(type + '-input');
+                const value = parseRupiah(input.value);
+                localStorage.setItem(type, value);
+                loadData();
+            }
+
+            // Continue learning button
+            document.getElementById('continue-learning').addEventListener('click', function() {
+                alert('Fitur lanjut belajar akan diarahkan ke materi terkait.');
+            });
+
+            // Event listeners
+            document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
+            document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
+
+            // Sidebar navigation event listeners
+            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        smoothScrollToSection(href.substring(1));
+                    }
+                });
+            });
+
+            // Load theme on start
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                document.querySelector('#dark-mode-toggle i').className = 'fas fa-sun';
+            }
+
+            // Load on start
             loadData();
-        }
-
-        // Continue learning button
-        document.getElementById('continue-learning').addEventListener('click', function() {
-            alert('Fitur lanjut belajar akan diarahkan ke materi terkait.');
-        });
-
-        // Event listeners
-        document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
-        document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
-
-        // Sidebar navigation event listeners
-        document.querySelectorAll('.sidebar-nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                if (href.startsWith('#')) {
-                    smoothScrollToSection(href.substring(1));
-                }
-            });
-        });
-
-        // Load theme on start
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.setAttribute('data-theme', 'dark');
-            document.querySelector('#dark-mode-toggle i').className = 'fas fa-sun';
-        }
-
-        // Load on start
-        loadData();
-    </script>
+        </script>
 </body>
+
 </html>
