@@ -30,6 +30,41 @@
             --border-color: #404040;
             --shadow: rgba(0, 0, 0, 0.3);
         }
+
+        [data-theme="dark"] body,
+        [data-theme="dark"] body h1,
+        [data-theme="dark"] body h2,
+        [data-theme="dark"] body h3,
+        [data-theme="dark"] body h4,
+        [data-theme="dark"] body h5,
+        [data-theme="dark"] body h6,
+        [data-theme="dark"] body p,
+        [data-theme="dark"] body a,
+        [data-theme="dark"] body span,
+        [data-theme="dark"] body label,
+        [data-theme="dark"] .card,
+        [data-theme="dark"] .card-header,
+        [data-theme="dark"] .container,
+        [data-theme="dark"] .sidebar,
+        [data-theme="dark"] .sidebar .sidebar-header,
+        [data-theme="dark"] .sidebar .sidebar-nav a,
+        [data-theme="dark"] .stat-card,
+        [data-theme="dark"] .notification,
+        [data-theme="dark"] .progress-item,
+        [data-theme="dark"] .btn-custom,
+        [data-theme="dark"] .form-control,
+        [data-theme="dark"] label {
+            color: var(--text-color) !important;
+        }
+
+        [data-theme="dark"] .form-control,
+        [data-theme="dark"] input,
+        [data-theme="dark"] textarea,
+        [data-theme="dark"] select {
+            background-color: var(--card-bg) !important;
+            color: var(--text-color) !important;
+            border-color: var(--border-color) !important;
+        }
         
         * {
             box-sizing: border-box;
@@ -72,6 +107,21 @@
         .sidebar-header h3 {
             font-weight: 700;
             margin-bottom: 5px;
+        }
+
+        .sidebar .sidebar-header .header-logo {
+            max-width: 160px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar .sidebar-header .header-logo {
+                max-width: 220px;
+            }
         }
         
         .sidebar-nav {
@@ -392,7 +442,7 @@
 
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h3 style="text-align: left;">Cerdas Finansial</h3>
+            <img src="../assets/media/logo2.png" alt="Cerdas Finansial company logo with vibrant orange and blue colors" class="header-logo">
             <p style="text-align: left;">Dashboard Navigasi</p>
         </div>
         <ul class="sidebar-nav">
@@ -708,23 +758,34 @@
             function updateChart(income, expenses) {
                 const ctx = document.getElementById('financeChart').getContext('2d');
                 new Chart(ctx, {
-                    type: 'bar',
+                    type: 'line',
                     data: {
                         labels: ['Pemasukan', 'Pengeluaran'],
                         datasets: [{
-                            label: 'Jumlah (Rp)',
-                            data: [income, expenses],
-                            backgroundColor: [
-                                'rgba(40, 167, 69, 0.8)',
-                                'rgba(220, 53, 69, 0.8)'
-                            ],
-                            borderColor: [
-                                'rgba(40, 167, 69, 1)',
-                                'rgba(220, 53, 69, 1)'
-                            ],
-                            borderWidth: 2,
-                            borderRadius: 8,
-                            borderSkipped: false,
+                            label: 'Pemasukan (Rp)',
+                            data: [income, income],
+                            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                            borderColor: 'rgba(40, 167, 69, 1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointBackgroundColor: 'rgba(40, 167, 69, 1)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        },
+                        {
+                            label: 'Pengeluaran (Rp)',
+                            data: [expenses, expenses],
+                            backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                            borderColor: 'rgba(220, 53, 69, 1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointBackgroundColor: 'rgba(220, 53, 69, 1)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
                         }]
                     },
                     options: {
