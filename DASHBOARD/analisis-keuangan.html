@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Keuangan - Cerdas Finansial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #f35b04;
+            --secondary-color: #ed8a07;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --text-muted: #666666;
+            --border-color: #e9ecef;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #ffffff;
+            --text-muted: #cccccc;
+            --border-color: #404040;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] body,
+        [data-theme="dark"] body h1,
+        [data-theme="dark"] body h2,
+        [data-theme="dark"] body h3,
+        [data-theme="dark"] body h4,
+        [data-theme="dark"] body h5,
+        [data-theme="dark"] body h6,
+        [data-theme="dark"] body p,
+        [data-theme="dark"] body a,
+        [data-theme="dark"] body span,
+        [data-theme="dark"] body label,
+        [data-theme="dark"] .card,
+        [data-theme="dark"] .card-header,
+        [data-theme="dark"] .container,
+        [data-theme="dark"] .table,
+        [data-theme="dark"] .table th,
+        [data-theme="dark"] .table td {
+            color: var(--text-color) !important;
+        }
+
+        [data-theme="dark"] .form-control,
+        [data-theme="dark"] input,
+        [data-theme="dark"] textarea,
+        [data-theme="dark"] select {
+            background-color: var(--card-bg) !important;
+            color: var(--text-color) !important;
+            border-color: var(--border-color) !important;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+            margin-bottom: 30px;
+            background-color: var(--card-bg);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow);
+        }
+
+        .card-header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            padding: 20px 25px;
+            border-radius: 15px 15px 0 0 !important;
+            font-size: 1.2rem;
+        }
+
+        .analysis-table {
+            width: 100%;
+            margin-bottom: 0;
+        }
+
+        .analysis-table th {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            border: none;
+        }
+
+        .analysis-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        .metric-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+
+        .metric-icon.wallet { background: rgba(40, 167, 69, 0.1); color: #28a745; }
+        .metric-icon.expenses { background: rgba(220, 53, 69, 0.1); color: #dc3545; }
+        .metric-icon.balance { background: rgba(23, 162, 184, 0.1); color: #17a2b8; }
+        .metric-icon.target { background: rgba(255, 193, 7, 0.1); color: #ffc107; }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, rgba(243, 91, 4, 0.1), rgba(237, 138, 7, 0.1));
+            border: 1px solid rgba(243, 91, 4, 0.2);
+        }
+
+        .summary-card .card-header {
+            background: transparent;
+            border-bottom: none;
+            color: var(--primary-color);
+        }
+
+        .insight-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+        }
+
+        .insight-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1rem;
+        }
+
+        .insight-icon.positive { background: rgba(40, 167, 69, 0.2); color: #28a745; }
+        .insight-icon.warning { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+        .insight-icon.info { background: rgba(23, 162, 184, 0.2); color: #17a2b8; }
+
+        .progress-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0 auto 10px;
+            position: relative;
+        }
+
+        .progress-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary-color) calc(var(--progress) * 1%), #e9ecef 0deg);
+        }
+
+        .progress-circle span {
+            position: relative;
+            z-index: 1;
+            color: var(--primary-color);
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(243, 91, 4, 0.3);
+            color: white;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .back-btn:hover {
+            transform: scale(1.1);
+            color: var(--text-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .analysis-table th,
+            .analysis-table td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            .metric-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                margin-right: 10px;
+            }
+
+            .metric-value {
+                font-size: 1.2rem;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="back-btn" title="Kembali ke Beranda">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <button class="dark-mode-toggle" id="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="header">
+        <div class="container">
+            <h1>📊 Analisis Keuangan</h1>
+            <p>Ringkasan lengkap kondisi keuangan Anda saat ini</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-chart-line"></i> Ringkasan Keuangan
+            </div>
+            <div class="card-body">
+                <table class="analysis-table">
+                    <thead>
+                        <tr>
+                            <th>Kategori</th>
+                            <th>Nilai</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="metric-icon wallet">
+                                        <i class="fas fa-coins"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Total Saldo</strong>
+                                        <br>
+                                        <small class="text-muted">Dompet + Tabungan</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="metric-value" id="total-balance">Rp 0</td>
+                            <td>
+                                <span class="badge bg-success" id="balance-status">Baik</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="metric-icon expenses">
+                                        <i class="fas fa-credit-card"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Pengeluaran Bulanan</strong>
+                                        <br>
+                                        <small class="text-muted">Total pengeluaran bulan ini</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="metric-value" id="monthly-expenses">Rp 0</td>
+                            <td>
+                                <span class="badge bg-warning" id="expense-status">Normal</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="metric-icon balance">
+                                        <i class="fas fa-balance-scale"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Sisa Keuangan</strong>
+                                        <br>
+                                        <small class="text-muted">Saldo setelah pengeluaran</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="metric-value" id="remaining-balance">Rp 0</td>
+                            <td>
+                                <span class="badge bg-info" id="remaining-status">Netral</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="metric-icon target">
+                                        <i class="fas fa-bullseye"></i>
+                                    </div>
+                                    <div>
+                                        <strong>Pencapaian Target</strong>
+                                        <br>
+                                        <small class="text-muted">Progress menuju target</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="metric-value" id="target-achievement">0%</td>
+                            <td>
+                                <div class="progress-circle" id="target-progress" style="--progress: 0%">
+                                    <span id="target-percent">0%</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card summary-card">
+            <div class="card-header">
+                <i class="fas fa-lightbulb"></i> Wawasan & Rekomendasi
+            </div>
+            <div class="card-body">
+                <div id="insights-container">
+                    <div class="insight-item">
+                        <div class="insight-icon info">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div>
+                            <strong>Memuat analisis...</strong>
+                            <br>
+                            <small>Sedang menghitung kondisi keuangan Anda</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="DASHBOARD/index.html" class="btn-custom">
+                <i class="fas fa-tachometer-alt"></i> Lihat Dashboard Lengkap
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 All Rights Reserved Cerdas Finansial. Dibuat Oleh Skinfa Developers
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function formatRupiah(num) {
+            return 'Rp ' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function parseRupiah(str) {
+            return parseInt(str.replace(/[^0-9]/g, '')) || 0;
+        }
+
+        function toggleDarkMode() {
+            const body = document.body;
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const icon = darkModeToggle.querySelector('i');
+
+            if (body.hasAttribute('data-theme')) {
+                body.removeAttribute('data-theme');
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function loadAnalysis() {
+            const wallet = parseRupiah(localStorage.getItem('wallet') || '0');
+            const savings = parseRupiah(localStorage.getItem('savings') || '0');
+            const expenses = parseRupiah(localStorage.getItem('expenses') || '0');
+            const target = parseRupiah(localStorage.getItem('target') || '0');
+
+            const totalBalance = wallet + savings;
+            const remainingBalance = totalBalance - expenses;
+            const targetAchievement = target > 0 ? Math.min(Math.round((totalBalance / target) * 100), 100) : 0;
+
+            document.getElementById('total-balance').textContent = formatRupiah(totalBalance);
+            document.getElementById('monthly-expenses').textContent = formatRupiah(expenses);
+            document.getElementById('remaining-balance').textContent = formatRupiah(remainingBalance);
+            document.getElementById('target-achievement').textContent = targetAchievement + '%';
+            document.getElementById('target-percent').textContent = targetAchievement + '%';
+
+            const progressCircle = document.getElementById('target-progress');
+            progressCircle.style.setProperty('--progress', targetAchievement + '%');
+
+            updateStatusBadges(totalBalance, expenses, remainingBalance, targetAchievement);
+
+            generateInsights(totalBalance, expenses, remainingBalance, targetAchievement, target);
+        }
+
+        function updateStatusBadges(totalBalance, expenses, remainingBalance, targetAchievement) {
+            const balanceStatus = document.getElementById('balance-status');
+            if (totalBalance > 1000000) {
+                balanceStatus.className = 'badge bg-success';
+                balanceStatus.textContent = 'Sangat Baik';
+            } else if (totalBalance > 500000) {
+                balanceStatus.className = 'badge bg-success';
+                balanceStatus.textContent = 'Baik';
+            } else {
+                balanceStatus.className = 'badge bg-warning';
+                balanceStatus.textContent = 'Perlu Ditingkatkan';
+            }
+
+            const expenseStatus = document.getElementById('expense-status');
+            const expenseRatio = totalBalance > 0 ? (expenses / totalBalance) * 100 : 0;
+            if (expenseRatio > 80) {
+                expenseStatus.className = 'badge bg-danger';
+                expenseStatus.textContent = 'Terlalu Tinggi';
+            } else if (expenseRatio > 50) {
+                expenseStatus.className = 'badge bg-warning';
+                expenseStatus.textContent = 'Tinggi';
+            } else {
+                expenseStatus.className = 'badge bg-success';
+                expenseStatus.textContent = 'Normal';
+            }
+
+            const remainingStatus = document.getElementById('remaining-status');
+            if (remainingBalance > 0) {
+                remainingStatus.className = 'badge bg-success';
+                remainingStatus.textContent = 'Surplus';
+            } else if (remainingBalance === 0) {
+                remainingStatus.className = 'badge bg-info';
+                remainingStatus.textContent = 'Balance';
+            } else {
+                remainingStatus.className = 'badge bg-danger';
+                remainingStatus.textContent = 'Defisit';
+            }
+        }
+
+        function generateInsights(totalBalance, expenses, remainingBalance, targetAchievement, target) {
+            const insights = [];
+            const container = document.getElementById('insights-container');
+
+            if (totalBalance < 500000) {
+                insights.push({
+                    type: 'warning',
+                    icon: 'fas fa-exclamation-triangle',
+                    title: 'Saldo Rendah',
+                    message: 'Pertimbangkan untuk meningkatkan tabungan Anda agar memiliki dana darurat yang memadai.'
+                });
+            } else if (totalBalance > 2000000) {
+                insights.push({
+                    type: 'positive',
+                    icon: 'fas fa-star',
+                    title: 'Saldo Kuat',
+                    message: 'Bagus! Anda memiliki saldo yang sehat. Pertimbangkan untuk berinvestasi.'
+                });
+            }
+
+            const expenseRatio = totalBalance > 0 ? (expenses / totalBalance) * 100 : 0;
+            if (expenseRatio > 70) {
+                insights.push({
+                    type: 'warning',
+                    icon: 'fas fa-chart-line',
+                    title: 'Pengeluaran Tinggi',
+                    message: 'Pengeluaran Anda melebihi 70% dari total saldo. Coba kurangi pengeluaran tidak perlu.'
+                });
+            } else if (expenseRatio < 30) {
+                insights.push({
+                    type: 'positive',
+                    icon: 'fas fa-thumbs-up',
+                    title: 'Pengelolaan Baik',
+                    message: 'Pengeluaran Anda terkontrol dengan baik. Pertahankan pola ini!'
+                });
+            }
+
+            if (target > 0) {
+                if (targetAchievement >= 100) {
+                    insights.push({
+                        type: 'positive',
+                        icon: 'fas fa-trophy',
+                        title: 'Target Tercapai!',
+                        message: 'Selamat! Anda telah mencapai target keuangan Anda.'
+                    });
+                } else if (targetAchievement >= 75) {
+                    insights.push({
+                        type: 'info',
+                        icon: 'fas fa-bullseye',
+                        title: 'Hampir Sampai',
+                        message: `Anda telah mencapai ${targetAchievement}% dari target. Sedikit lagi!`
+                    });
+                } else {
+                    insights.push({
+                        type: 'info',
+                        icon: 'fas fa-target',
+                        title: 'Target Dalam Jangkauan',
+                        message: `Anda telah mencapai ${targetAchievement}% dari target. Tetap semangat!`
+                    });
+                }
+            }
+
+            if (remainingBalance < 0) {
+                insights.push({
+                    type: 'warning',
+                    icon: 'fas fa-exclamation-circle',
+                    title: 'Defisit Keuangan',
+                    message: 'Pengeluaran Anda melebihi pemasukan. Perlu restrukturisasi budget.'
+                });
+            }
+
+            if (insights.length === 0) {
+                insights.push({
+                    type: 'info',
+                    icon: 'fas fa-balance-scale',
+                    title: 'Kondisi Stabil',
+                    message: 'Keuangan Anda dalam kondisi stabil. Pertahankan pola pengelolaan yang baik.'
+                });
+            }
+
+            container.innerHTML = insights.map(insight => `
+                <div class="insight-item">
+                    <div class="insight-icon ${insight.type}">
+                        <i class="${insight.icon}"></i>
+                    </div>
+                    <div>
+                        <strong>${insight.title}</strong>
+                        <br>
+                        <small>${insight.message}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            document.querySelector('#dark-mode-toggle i').className = 'fas fa-sun';
+        }
+
+        loadAnalysis();
+    </script>
+</body>
+
+</html>

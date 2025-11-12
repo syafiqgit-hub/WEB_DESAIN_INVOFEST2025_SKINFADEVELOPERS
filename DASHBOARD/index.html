@@ -356,6 +356,112 @@
         .dark-mode-toggle:hover {
             transform: scale(1.1);
         }
+
+        .notification-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .notification-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .notification-toggle i,
+        .dark-mode-toggle i {
+            color: var(--text-color);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .notification-panel {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 350px;
+            max-height: 400px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+            z-index: 1002;
+            display: none;
+            overflow-y: auto;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .notification-panel.show {
+            display: block;
+        }
+
+        .notification-panel-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .notification-panel-body {
+            padding: 0;
+        }
+
+        .notification-panel .notification {
+            margin: 0;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 0;
+            padding: 15px 20px;
+            cursor: pointer;
+        }
+
+        .notification-panel .notification:last-child {
+            border-bottom: none;
+        }
+
+        .notification-panel .notification:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] .notification-panel .notification:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
         
         footer {
             text-align: center;
@@ -436,6 +542,27 @@
         <i class="fas fa-bars"></i>
     </button>
 
+    <button class="notification-toggle" id="notification-toggle">
+        <i class="fas fa-bell"></i>
+        <span class="notification-badge" id="notification-badge">2</span>
+    </button>
+
+    <div class="notification-panel" id="notification-panel">
+        <div class="notification-panel-header">
+            <i class="fas fa-bell"></i> Notifikasi
+        </div>
+        <div class="notification-panel-body">
+            <div class="notification">
+                <i class="fas fa-bell text-warning"></i> Kuis Keuangan Mingguan dimulai hari Jumat ini!
+                <small class="text-muted d-block">2 hari lalu</small>
+            </div>
+            <div class="notification">
+                <i class="fas fa-star text-success"></i> Ada topik baru: Dasar Investasi untuk Pemula 💡
+                <small class="text-muted d-block">1 minggu lalu</small>
+            </div>
+        </div>
+    </div>
+
     <button class="dark-mode-toggle" id="dark-mode-toggle">
         <i class="fas fa-moon"></i>
     </button>
@@ -454,7 +581,8 @@
             <li><a href="#goals"><i class="fas fa-bullseye"></i> Target</a></li>
             <li><a href="#learning"><i class="fas fa-book"></i> Belajar</a></li>
             <li><a href="#recommendations"><i class="fas fa-star"></i> Rekomendasi</a></li>
-            <li><a href="#notifications"><i class="fas fa-bell"></i> Notifikasi</a></li>
+            <li><a href="analisis-keuangan.html"><i class="fas fa-chart-pie"></i> Analisis Keuangan</a></li>
+
         </ul>
     </div>
 
@@ -641,19 +769,7 @@
                 </div>
             </div>
 
-            <div class="card" id="notifications">
-                <div class="card-header">Notifikasi / Pengumuman</div>
-                <div class="card-body">
-                    <div class="notification">
-                        <i class="fas fa-bell text-warning"></i> Kuis Keuangan Mingguan dimulai hari Jumat ini!
-                        <small class="text-muted d-block">2 hari lalu</small>
-                    </div>
-                    <div class="notification">
-                        <i class="fas fa-star text-success"></i> Ada topik baru: Dasar Investasi untuk Pemula 💡
-                        <small class="text-muted d-block">1 minggu lalu</small>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
         <footer>
@@ -662,17 +778,14 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            // Format Rupiah
             function formatRupiah(num) {
                 return 'Rp ' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             }
 
-            // Parse Rupiah
             function parseRupiah(str) {
                 return parseInt(str.replace(/[^0-9]/g, '')) || 0;
             }
 
-            // Daily tips array
             const tips = [
                 "Catat semua pengeluaranmu setiap hari biar bisa evaluasi keuangan mingguan!",
                 "Tabung minimal 20% dari pendapatanmu setiap bulan.",
@@ -681,7 +794,6 @@
                 "Pantau pengeluaran mingguan untuk kontrol yang lebih baik."
             ];
 
-            // Dark mode functionality
             function toggleDarkMode() {
                 const body = document.body;
                 const darkModeToggle = document.getElementById('dark-mode-toggle');
@@ -698,7 +810,6 @@
                 }
             }
 
-            // Sidebar functionality
             function toggleSidebar() {
                 const sidebar = document.getElementById('sidebar');
                 const mainContent = document.getElementById('main-content');
@@ -707,7 +818,6 @@
                 mainContent.classList.toggle('shifted');
             }
 
-            // Smooth scrolling for sidebar navigation
             function smoothScrollToSection(sectionId) {
                 const element = document.getElementById(sectionId);
                 if (element) {
@@ -715,13 +825,11 @@
                         behavior: 'smooth'
                     });
                 }
-                // Close sidebar on mobile after clicking
                 if (window.innerWidth <= 768) {
                     toggleSidebar();
                 }
             }
 
-            // Load data
             function loadData() {
                 const userName = localStorage.getItem('userName') || 'Pengguna';
                 const wallet = parseRupiah(localStorage.getItem('wallet') || '0');
@@ -740,30 +848,40 @@
                 document.getElementById('progress-text').textContent = progress + '% selesai';
                 document.getElementById('iq-score').textContent = iq;
 
-                // Set input values
                 document.getElementById('wallet-input').value = formatRupiah(wallet);
                 document.getElementById('savings-input').value = formatRupiah(savings);
                 document.getElementById('expenses-input').value = formatRupiah(expenses);
                 document.getElementById('target-input').value = formatRupiah(target);
 
-                // Random daily tip based on date
                 const today = new Date().toDateString();
                 const tipIndex = today.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % tips.length;
                 document.getElementById('daily-tip').textContent = tips[tipIndex];
 
-                updateChart(wallet + savings, expenses); // Assuming income is wallet + savings
+                updateChart();
             }
 
-            // Update chart with enhanced configuration
-            function updateChart(income, expenses) {
+            function updateChart() {
+                const monthlyData = JSON.parse(localStorage.getItem('monthlyData') || '{}');
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
+                const incomeData = [];
+                const expenseData = [];
+
+                for (let i = 0; i < 12; i++) {
+                    const monthData = monthlyData[i] || {};
+                    const income = (monthData.wallet || 0) + (monthData.savings || 0);
+                    const expense = monthData.expenses || 0;
+                    incomeData.push(income);
+                    expenseData.push(expense);
+                }
+
                 const ctx = document.getElementById('financeChart').getContext('2d');
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: ['Pemasukan', 'Pengeluaran'],
+                        labels: months,
                         datasets: [{
                             label: 'Pemasukan (Rp)',
-                            data: [income, income],
+                            data: incomeData,
                             backgroundColor: 'rgba(40, 167, 69, 0.1)',
                             borderColor: 'rgba(40, 167, 69, 1)',
                             borderWidth: 3,
@@ -776,7 +894,7 @@
                         },
                         {
                             label: 'Pengeluaran (Rp)',
-                            data: [expenses, expenses],
+                            data: expenseData,
                             backgroundColor: 'rgba(220, 53, 69, 0.1)',
                             borderColor: 'rgba(220, 53, 69, 1)',
                             borderWidth: 3,
@@ -852,42 +970,59 @@
                 });
             }
 
-            // Update data
             function updateData(type) {
                 const input = document.getElementById(type + '-input');
                 const value = parseRupiah(input.value);
                 localStorage.setItem(type, value);
+
+                const currentMonth = new Date().getMonth();
+                const monthlyData = JSON.parse(localStorage.getItem('monthlyData') || '{}');
+                if (!monthlyData[currentMonth]) monthlyData[currentMonth] = {};
+                monthlyData[currentMonth][type] = value;
+                localStorage.setItem('monthlyData', JSON.stringify(monthlyData));
+
                 loadData();
             }
 
-            // Continue learning button
             document.getElementById('continue-learning').addEventListener('click', function() {
                 alert('Fitur lanjut belajar akan diarahkan ke materi terkait.');
             });
 
-            // Event listeners
             document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
             document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
 
-            // Sidebar navigation event listeners
+            document.getElementById('notification-toggle').addEventListener('click', function() {
+                const panel = document.getElementById('notification-panel');
+                const badge = document.getElementById('notification-badge');
+                panel.classList.toggle('show');
+                if (panel.classList.contains('show')) {
+                    badge.style.display = 'none';
+                    localStorage.setItem('notificationsViewed', 'true');
+                }
+            });
+
             document.querySelectorAll('.sidebar-nav a').forEach(link => {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault();
                     const href = this.getAttribute('href');
                     if (href.startsWith('#')) {
+                        e.preventDefault();
                         smoothScrollToSection(href.substring(1));
                     }
+                    // Allow default navigation for non-hash links
                 });
             });
 
-            // Load theme on start
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 document.body.setAttribute('data-theme', 'dark');
                 document.querySelector('#dark-mode-toggle i').className = 'fas fa-sun';
             }
 
-            // Load on start
+            const notificationsViewed = localStorage.getItem('notificationsViewed');
+            if (notificationsViewed === 'true') {
+                document.getElementById('notification-badge').style.display = 'none';
+            }
+
             loadData();
         </script>
 </body>
