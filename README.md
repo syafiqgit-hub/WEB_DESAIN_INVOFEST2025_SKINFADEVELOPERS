@@ -2,7 +2,7 @@
 
 ## Nama Anggota Tim
 1. Syafiq Bamazruk  
-2. Kevan Muhammad Asghar
+2. Kevan Mohammed Asghar
 
  Judul Project: Website Edukasi Finansial “Cerdas Finansial”
  Tema: Edukasi Finansial untuk Remaja dan Dewasa | “Innovation Beyond Limits: Empowering the Future with IT”
