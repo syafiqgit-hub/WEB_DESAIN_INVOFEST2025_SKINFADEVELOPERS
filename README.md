@@ -5,7 +5,7 @@
 2. Kevan Mohammed Asghar
 
 ## Judul Project: Website Edukasi Finansial “Cerdas Finansial”
-## Tema: Edukasi Finansial untuk Remaja dan Dewasa | “Innovation Beyond Limits: Empowering the Future with IT - From Creation to Innovation - Building a Sustainable Socio-Economic Future”
+## Tema: “Innovation Beyond Limits: Empowering the Future with IT - From Creation to Innovation - Building a Sustainable Socio-Economic Future”
 
 ## 💡 Latar Belakang
 
