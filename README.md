@@ -13,6 +13,8 @@ Di era modern ini, banyak remaja dan dewasa muda yang belum memiliki pemahaman y
 
 Melihat kondisi tersebut, kami terinspirasi untuk menciptakan sebuah website edukasi finansial yang menarik, interaktif, dan mudah dipahami. Tujuannya adalah memberikan wadah bagi generasi muda untuk belajar mengatur keuangan secara cerdas sejak dini, sehingga mereka dapat mengembangkan kebiasaan finansial yang sehat dan mempersiapkan masa depan dengan lebih bijak.
 
+Pilihan tema lomba “Innovation Beyond Limits: Empowering the Future with IT - From Creation to Innovation - Building a Sustainable Socio-Economic Future” sangat selaras dengan tujuan kami. Dengan memanfaatkan teknologi informasi secara inovatif, website ini tidak hanya memberikan edukasi finansial, tetapi juga mendorong generasi muda untuk menjadi cerdas finansial, mampu memanfaatkan inovasi digital dalam mengelola uang, menabung, dan berinvestasi secara berkelanjutan, sehingga mereka dapat berkontribusi pada pembangunan sosial-ekonomi yang lebih baik dan berkelanjutan.
+
 ## ⚠️ Permasalahan
 
 - Kurangnya pengetahuan remaja tentang manajemen keuangan pribadi.
