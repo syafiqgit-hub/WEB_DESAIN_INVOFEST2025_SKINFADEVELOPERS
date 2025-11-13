@@ -553,6 +553,16 @@
         #greeting {
             text-align: left;
         }
+        /* small styles for goals list */
+        
+        .goal-row {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .goal-actions button {
+            margin-left: 8px;
+        }
     </style>
 </head>
 
@@ -571,14 +581,7 @@
             <i class="fas fa-bell"></i> Notifikasi
         </div>
         <div class="notification-panel-body">
-            <div class="notification">
-                <i class="fas fa-bell text-warning"></i> Kuis Keuangan Mingguan dimulai hari Jumat ini!
-                <small class="text-muted d-block">2 hari lalu</small>
-            </div>
-            <div class="notification">
-                <i class="fas fa-star text-success"></i> Ada topik baru: Dasar Investasi untuk Pemula 💡
-                <small class="text-muted d-block">1 minggu lalu</small>
-            </div>
+            <!-- notifications rendered dynamically -->
         </div>
     </div>
 
@@ -588,8 +591,7 @@
 
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header" style="text-align: left;">
-            <a href="#hero"></a><img src="../assets/media/logo-nav.png" alt="Cerdas Finansial company logo with vibrant orange and blue colors" class="header-logo">
-            <p>Dashboard Navigasi</p>
+            <a href="#hero"></a><img src="../assets/media/logo-dashboard.png" alt="Cerdas Finansial company logo with vibrant orange and blue colors" class="header-logo">
         </div>
         <ul class="sidebar-nav">
             <li><a href="#hero"><i class="fas fa-home"></i> Dashboard</a></li>
@@ -603,16 +605,6 @@
             <div class="hero" id="hero">
                 <h1 id="greeting">Selamat Datang di Dashboard Finansial!</h1>
                 <p style="text-align: left;">Kelola keuanganmu dengan cerdas hari ini 💰</p>
-                <div class="progress-section">
-                    <div class="progress-item" style="text-align: left;">
-                        <strong>Progress Belajar:</strong>
-                        <div class="progress mt-2">
-                            <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
-                        </div>
-                        <small id="progress-text">0% selesai</small>
-                    </div>
-
-                </div>
             </div>
 
             <div class="card" id="financial-data">
@@ -641,7 +633,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <label>Target Keuangan</label>
+                            <label>Target Keuangan (Default)</label>
                             <div class="input-group">
                                 <input type="text" id="target-input" class="form-control" placeholder="Rp 0">
                                 <button class="btn btn-custom" onclick="updateData('target')">Update</button>
@@ -709,76 +701,56 @@
 
             <div class="card" id="tips">
                 <div class="card-header"><i class="fas fa-lightbulb"></i> Tips Finansial Hari Ini</div>
-                <div class="card-body">
-                    <p id="daily-tip">Catat semua pengeluaranmu setiap hari biar bisa evaluasi keuangan mingguan!</p>
+                <div class="card-body d-flex align-items-start justify-content-between">
+                    <div style="flex:1;">
+                        <p id="daily-tip" style="font-weight:500; font-size:1rem; margin-bottom:8px;">Memuat tips...</p>
+                        <small id="daily-tip-source" class="text-muted"></small>
+                    </div>
+                    <div class="text-end" style="min-width:160px;">
+                        <button class="btn btn-outline-secondary btn-sm" id="prev-tip"><i class="fas fa-chevron-left"></i></button>
+                        <button class="btn btn-custom btn-sm" id="next-tip" style="margin-left:8px;">Tip Berikutnya</button>
+                    </div>
                 </div>
             </div>
 
+
+            <!-- Goals: more detailed personal financial targets -->
             <div class="card" id="goals">
-                <div class="card-header"><i class="fas fa-bullseye"></i> Target Keuangan Pribadi</div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <strong>Liburan Tahunan: </strong><span id="vacation-progress">75%</span>
-                        <div class="progress mt-1">
-                            <div class="progress-bar" style="width: 75%"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <strong>Dana Darurat: </strong><span id="emergency-progress">60%</span>
-                        <div class="progress mt-1">
-                            <div class="progress-bar" style="width: 60%"></div>
-                        </div>
-                    </div>
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <div><i class="fas fa-bullseye"></i> Target Keuangan Pribadi</div>
                     <div>
-                        <strong>Investasi Jangka Panjang: </strong><span id="investment-progress">45%</span>
-                        <div class="progress mt-1">
-                            <div class="progress-bar" style="width: 45%"></div>
-                        </div>
+                        <button class="btn btn-outline-secondary btn-sm" id="refresh-goals"><i class="fas fa-sync"></i></button>
                     </div>
                 </div>
-            </div>
-
-            <div class="card" id="learning">
-                <div class="card-header"><i class="fas fa-book"></i> Topik Terakhir yang Dipelajari</div>
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 id="last-topic-title">Dasar Pengelolaan Keuangan</h6>
-                            <p class="mb-0" id="last-topic-desc">Pelajari cara mengatur budget harian dan bulanan</p>
-                        </div>
-                        <button class="btn btn-custom" id="continue-learning">Lanjut Belajar</button>
+                    <div id="goals-list">
+                        <!-- goals rendered dynamically -->
                     </div>
-                </div>
-            </div>
 
-            <div class="card" id="recommendations">
-                <div class="card-header">Artikel / Video Rekomendasi</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-start mb-3">
-                                <i class="fas fa-book fa-2x text-primary me-3"></i>
-                                <div>
-                                    <h6>5 Cara Mengatur Uang Saku Siswa</h6>
-                                    <p>Tips praktis untuk mengelola uang saku secara bijak</p>
-                                    <small class="text-primary">Baca Artikel →</small>
-                                </div>
+                    <hr>
+
+                    <div class="mb-3">
+                        <h6>Tambah Target Baru</h6>
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <input type="text" id="new-goal-title" class="form-control" placeholder="Judul (mis. Liburan Bali)">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="new-goal-target" class="form-control" placeholder="Target (Rp)">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="new-goal-saved" class="form-control" placeholder="Tersimpan (Rp)">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="date" id="new-goal-deadline" class="form-control">
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-start mb-3">
-                                <i class="fas fa-play-circle fa-2x text-success me-3"></i>
-                                <div>
-                                    <h6>Cara Menabung Efektif Buat Pelajar</h6>
-                                    <p>Strategi menabung yang mudah diikuti pemula</p>
-                                    <small class="text-success">Tonton Video →</small>
-                                </div>
-                            </div>
+                        <div class="mt-2 text-end">
+                            <button class="btn btn-custom" id="add-goal">Tambah Target</button>
                         </div>
                     </div>
                 </div>
             </div>
-
 
         </div>
 
@@ -788,253 +760,685 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            function formatRupiah(num) {
-                return 'Rp ' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-            }
+            // Dashboard JavaScript untuk dashboard.html
+            // Menyimpan semua ke localStorage, meng-handle UI, dan menggambar Chart.js
+            'use strict';
 
-            function parseRupiah(str) {
-                return parseInt(str.replace(/[^0-9]/g, '')) || 0;
-            }
+            (function() {
+                // ===== Helper =====
+                const LS_KEY = 'cf_dashboard_data_v1';
 
-            const tips = [
-                "Catat semua pengeluaranmu setiap hari biar bisa evaluasi keuangan mingguan!",
-                "Tabung minimal 20% dari pendapatanmu setiap bulan.",
-                "Buat budget bulanan untuk menghindari pengeluaran berlebihan.",
-                "Investasikan sebagian tabungan di instrumen yang aman.",
-                "Pantau pengeluaran mingguan untuk kontrol yang lebih baik."
-            ];
-
-            function toggleDarkMode() {
-                const body = document.body;
-                const darkModeToggle = document.getElementById('dark-mode-toggle');
-                const icon = darkModeToggle.querySelector('i');
-
-                if (body.hasAttribute('data-theme')) {
-                    body.removeAttribute('data-theme');
-                    icon.className = 'fas fa-moon';
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    body.setAttribute('data-theme', 'dark');
-                    icon.className = 'fas fa-sun';
-                    localStorage.setItem('theme', 'dark');
-                }
-            }
-
-            function toggleSidebar() {
-                const sidebar = document.getElementById('sidebar');
-                const mainContent = document.getElementById('main-content');
-
-                sidebar.classList.toggle('show');
-                mainContent.classList.toggle('shifted');
-            }
-
-            function smoothScrollToSection(sectionId) {
-                const element = document.getElementById(sectionId);
-                if (element) {
-                    element.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-                if (window.innerWidth <= 768) {
-                    toggleSidebar();
-                }
-            }
-
-            function loadData() {
-                const userName = localStorage.getItem('userName') || 'Pengguna';
-                const wallet = parseRupiah(localStorage.getItem('wallet') || '0');
-                const savings = parseRupiah(localStorage.getItem('savings') || '0');
-                const expenses = parseRupiah(localStorage.getItem('expenses') || '0');
-                const target = parseRupiah(localStorage.getItem('target') || '0');
-                const progress = parseInt(localStorage.getItem('learningProgress') || 0);
-                const iq = parseInt(localStorage.getItem('financialIQ') || 0);
-
-                document.getElementById('greeting').textContent = `Selamat datang, ${userName}! Hari ini kamu udah belajar cerdas finansial 💰`;
-                document.getElementById('wallet').textContent = formatRupiah(wallet);
-                document.getElementById('savings').textContent = formatRupiah(savings);
-                document.getElementById('expenses').textContent = formatRupiah(expenses);
-                document.getElementById('target').textContent = formatRupiah(target);
-                document.getElementById('progress-bar').style.width = progress + '%';
-                document.getElementById('progress-text').textContent = progress + '% selesai';
-                document.getElementById('iq-score').textContent = iq;
-
-                document.getElementById('wallet-input').value = formatRupiah(wallet);
-                document.getElementById('savings-input').value = formatRupiah(savings);
-                document.getElementById('expenses-input').value = formatRupiah(expenses);
-                document.getElementById('target-input').value = formatRupiah(target);
-
-                const today = new Date().toDateString();
-                const tipIndex = today.split('').reduce((a, b) => a + b.charCodeAt(0), 0) % tips.length;
-                document.getElementById('daily-tip').textContent = tips[tipIndex];
-
-                updateChart();
-            }
-
-            function updateChart() {
-                const monthlyData = JSON.parse(localStorage.getItem('monthlyData') || '{}');
-                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
-                const incomeData = [];
-                const expenseData = [];
-
-                for (let i = 0; i < 12; i++) {
-                    const monthData = monthlyData[i] || {};
-                    const income = (monthData.wallet || 0) + (monthData.savings || 0);
-                    const expense = monthData.expenses || 0;
-                    incomeData.push(income);
-                    expenseData.push(expense);
-                }
-
-                const ctx = document.getElementById('financeChart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: months,
-                        datasets: [{
-                            label: 'Pemasukan (Rp)',
-                            data: incomeData,
-                            backgroundColor: 'rgba(40, 167, 69, 0.1)',
-                            borderColor: 'rgba(40, 167, 69, 1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4,
-                            pointRadius: 6,
-                            pointBackgroundColor: 'rgba(40, 167, 69, 1)',
-                            pointBorderColor: '#fff',
-                            pointBorderWidth: 2
-                        }, {
-                            label: 'Pengeluaran (Rp)',
-                            data: expenseData,
-                            backgroundColor: 'rgba(220, 53, 69, 0.1)',
-                            borderColor: 'rgba(220, 53, 69, 1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4,
-                            pointRadius: 6,
-                            pointBackgroundColor: 'rgba(220, 53, 69, 1)',
-                            pointBorderColor: '#fff',
-                            pointBorderWidth: 2
-                        }]
+                const DEFAULT_DATA = {
+                    wallet: 0,
+                    savings: 0,
+                    expenses: 0,
+                    target: 0,
+                    learning: {
+                        progress: 0, // 0..100
+                        lastTopic: {
+                            title: 'Dasar Pengelolaan Keuangan',
+                            desc: 'Pelajari cara mengatur budget harian dan bulanan'
+                        }
                     },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: 'top',
-                                labels: {
-                                    usePointStyle: true,
-                                    padding: 20,
-                                    font: {
-                                        size: 14,
-                                        weight: '500'
-                                    }
-                                }
-                            },
-                            tooltip: {
-                                backgroundColor: 'rgba(0,0,0,0.8)',
-                                titleColor: '#fff',
-                                bodyColor: '#fff',
-                                borderColor: 'rgba(255,255,255,0.1)',
-                                borderWidth: 1,
-                                cornerRadius: 8,
-                                displayColors: true,
-                                callbacks: {
-                                    label: function(context) {
-                                        return context.dataset.label + ': ' + formatRupiah(context.parsed.y);
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: value => formatRupiah(value),
-                                    font: {
-                                        size: 12
-                                    }
-                                },
-                                grid: {
-                                    color: 'rgba(0,0,0,0.1)'
-                                }
-                            },
-                            x: {
-                                ticks: {
-                                    font: {
-                                        size: 14,
-                                        weight: '500'
-                                    }
-                                },
-                                grid: {
-                                    display: false
-                                }
-                            }
-                        },
-                        animation: {
-                            duration: 1000,
-                            easing: 'easeOutQuart'
+                    notifications: [{
+                        id: 1,
+                        title: 'Kuis Keuangan Mingguan dimulai hari Jumat ini!',
+                        time: '2 hari lalu',
+                        read: false,
+                        icon: 'fa-bell text-warning'
+                    }, {
+                        id: 2,
+                        title: 'Ada topik baru: Dasar Investasi untuk Pemula 💡',
+                        time: '1 minggu lalu',
+                        read: false,
+                        icon: 'fa-star text-success'
+                    }],
+                    goals: [{
+                        id: 1,
+                        title: 'Liburan Tahunan',
+                        targetAmount: 8000000,
+                        saved: 6000000,
+                        deadline: new Date(new Date().getFullYear(), new Date().getMonth() + 3, 1).toISOString().substr(0, 10),
+                        notes: 'Sisihkan Rp 500k/bulan'
+                    }, {
+                        id: 2,
+                        title: 'Dana Darurat',
+                        targetAmount: 12000000,
+                        saved: 7200000,
+                        deadline: new Date(new Date().getFullYear(), new Date().getMonth() + 12, 1).toISOString().substr(0, 10),
+                        notes: 'Target 6 bulan biaya hidup'
+                    }, {
+                        id: 3,
+                        title: 'Investasi Jangka Panjang',
+                        targetAmount: 50000000,
+                        saved: 22500000,
+                        deadline: new Date(new Date().getFullYear() + 3, 0, 1).toISOString().substr(0, 10),
+                        notes: 'Reksa dana bulanan'
+                    }],
+                    tips: {
+                        index: null // will be used to track current tip
+                    },
+                    theme: 'light' // 'light' or 'dark'
+                };
+
+                const TIPS = [{
+                    text: 'Catat semua pengeluaranmu setiap hari biar bisa evaluasi keuangan mingguan!',
+                    source: 'Dasar Pengelolaan'
+                }, {
+                    text: 'Sisihkan minimal 10% pemasukan ke tabungan darurat setiap bulan.',
+                    source: 'Praktik Menabung'
+                }, {
+                    text: 'Gunakan metode amplop (envelope) untuk mengatur pengeluaran non-penting.',
+                    source: 'Manajemen Anggaran'
+                }, {
+                    text: 'Cek langganan berulang Anda; hentikan yang tidak terpakai untuk hemat bulanan.',
+                    source: 'Optimalisasi Pengeluaran'
+                }, {
+                    text: 'Mulai investasi kecil secara rutin (mis. Rp50k/minggu) untuk disiplin.',
+                    source: 'Investasi Awal'
+                }, {
+                    text: 'Bayar utang berbunga tinggi terlebih dahulu untuk menurunkan beban bunga.',
+                    source: 'Strategi Utang'
+                }, {
+                    text: 'Tentukan tujuan keuangan yang spesifik: nominal dan tenggat waktu.',
+                    source: 'Perencanaan'
+                }];
+
+                function loadData() {
+                    try {
+                        const raw = localStorage.getItem(LS_KEY);
+                        if (!raw) return structuredClone(DEFAULT_DATA);
+                        const parsed = JSON.parse(raw);
+                        // Ensure structure has required fields (simple merge)
+                        const merged = Object.assign(structuredClone(DEFAULT_DATA), parsed);
+                        // if tips index is missing set to null so we can initialize later
+                        if (!merged.tips) merged.tips = {
+                            index: null
+                        };
+                        return merged;
+                    } catch (e) {
+                        console.error('Gagal membaca localStorage, gunakan default.', e);
+                        return structuredClone(DEFAULT_DATA);
+                    }
+                }
+
+                function saveData(data) {
+                    try {
+                        localStorage.setItem(LS_KEY, JSON.stringify(data));
+                    } catch (e) {
+                        console.error('Gagal menyimpan data ke localStorage', e);
+                    }
+                }
+
+                // Format angka ke IDR tanpa desimal
+                const currencyFormatter = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    maximumFractionDigits: 0
+                });
+
+                function formatCurrency(value) {
+                    const num = Number(value) || 0;
+                    return currencyFormatter.format(Math.round(num));
+                }
+
+                // Parse input teks menjadi angka (menghapus non-digit)
+                function parseCurrencyInput(str) {
+                    if (typeof str !== 'string') return 0;
+                    // Hapus semua karakter bukan digit atau minus
+                    const cleaned = str.replace(/[^0-9\-]/g, '');
+                    if (cleaned === '' || cleaned === '-') return 0;
+                    const parsed = Number(cleaned);
+                    return Number.isFinite(parsed) ? parsed : 0;
+                }
+
+                // ===== UI references =====
+                const el = {
+                    sidebar: document.getElementById('sidebar'),
+                    sidebarToggle: document.getElementById('sidebar-toggle'),
+                    mainContent: document.getElementById('main-content'),
+                    darkToggle: document.getElementById('dark-mode-toggle'),
+                    notificationToggle: document.getElementById('notification-toggle'),
+                    notificationBadge: document.getElementById('notification-badge'),
+                    notificationPanel: document.getElementById('notification-panel'),
+                    walletInput: document.getElementById('wallet-input'),
+                    savingsInput: document.getElementById('savings-input'),
+                    expensesInput: document.getElementById('expenses-input'),
+                    targetInput: document.getElementById('target-input'),
+                    walletStat: document.getElementById('wallet'),
+                    savingsStat: document.getElementById('savings'),
+                    expensesStat: document.getElementById('expenses'),
+                    targetStat: document.getElementById('target'),
+                    dailyTip: document.getElementById('daily-tip'),
+                    dailyTipSource: document.getElementById('daily-tip-source'),
+                    prevTipBtn: document.getElementById('prev-tip'),
+                    nextTipBtn: document.getElementById('next-tip'),
+                    lastTopicTitle: document.getElementById('last-topic-title'),
+                    lastTopicDesc: document.getElementById('last-topic-desc'),
+                    progressBar: document.getElementById('progress-bar'),
+                    progressText: document.getElementById('progress-text'),
+                    continueLearning: document.getElementById('continue-learning'),
+                    greeting: document.getElementById('greeting'),
+                    financeChartCanvas: document.getElementById('financeChart'),
+                    goalsList: document.getElementById('goals-list'),
+                    addGoalBtn: document.getElementById('add-goal'),
+                    newGoalTitle: document.getElementById('new-goal-title'),
+                    newGoalTarget: document.getElementById('new-goal-target'),
+                    newGoalSaved: document.getElementById('new-goal-saved'),
+                    newGoalDeadline: document.getElementById('new-goal-deadline'),
+                    refreshGoalsBtn: document.getElementById('refresh-goals')
+                };
+
+                // ===== App state =====
+                let data = loadData();
+                let financeChart = null;
+                let tipAutoRotateInterval = null;
+
+                // ===== Utility =====
+                function escapeHtml(unsafe) {
+                    if (typeof unsafe !== 'string') return '';
+                    return unsafe
+                        .replaceAll('&', '&amp;')
+                        .replaceAll('<', '&lt;')
+                        .replaceAll('>', '&gt;')
+                        .replaceAll('"', '&quot;')
+                        .replaceAll("'", '&#039;');
+                }
+
+                // ===== Render functions =====
+                function renderStats() {
+                    el.walletStat.textContent = formatCurrency(data.wallet);
+                    el.savingsStat.textContent = formatCurrency(data.savings);
+                    el.expensesStat.textContent = formatCurrency(data.expenses);
+                    el.targetStat.textContent = formatCurrency(data.target);
+
+                    // Update input placeholders / values to formatted
+                    if (document.activeElement !== el.walletInput) el.walletInput.value = formatCurrency(data.wallet);
+                    if (document.activeElement !== el.savingsInput) el.savingsInput.value = formatCurrency(data.savings);
+                    if (document.activeElement !== el.expensesInput) el.expensesInput.value = formatCurrency(data.expenses);
+                    if (document.activeElement !== el.targetInput) el.targetInput.value = formatCurrency(data.target);
+                }
+
+                function renderLearning() {
+                    const prog = Math.max(0, Math.min(100, Math.round(data.learning.progress || 0)));
+                    if (el.progressBar) {
+                        el.progressBar.style.width = prog + '%';
+                    }
+                    if (el.progressText) el.progressText.textContent = prog + '% selesai';
+                    if (el.lastTopicTitle) el.lastTopicTitle.textContent = data.learning.lastTopic.title;
+                    if (el.lastTopicDesc) el.lastTopicDesc.textContent = data.learning.lastTopic.desc;
+                }
+
+                function renderNotifications() {
+                    const panelBody = el.notificationPanel.querySelector('.notification-panel-body');
+                    // Hapus semua notifikasi di panel body lalu render ulang
+                    panelBody.innerHTML = '';
+                    data.notifications.forEach(n => {
+                        const div = document.createElement('div');
+                        div.className = 'notification';
+                        div.dataset.id = n.id;
+                        // icon may include classes (e.g. 'fa-star text-success')
+                        div.innerHTML = `<i class="fas ${escapeHtml(n.icon)} me-2"></i> ${escapeHtml(n.title)}
+        <small class="text-muted d-block">${escapeHtml(n.time)}</small>`;
+                        if (!n.read) div.style.background = ''; // keep default styling; could highlight unread
+                        div.addEventListener('click', () => {
+                            markNotificationRead(n.id);
+                        });
+                        panelBody.appendChild(div);
+                    });
+
+                    const unreadCount = data.notifications.filter(x => !x.read).length;
+                    if (el.notificationBadge) {
+                        if (unreadCount > 0) {
+                            el.notificationBadge.style.display = 'flex';
+                            el.notificationBadge.textContent = unreadCount;
+                        } else {
+                            el.notificationBadge.style.display = 'none';
                         }
                     }
-                });
-            }
-
-            function updateData(type) {
-                const input = document.getElementById(type + '-input');
-                const value = parseRupiah(input.value);
-                localStorage.setItem(type, value);
-
-                const currentMonth = new Date().getMonth();
-                const monthlyData = JSON.parse(localStorage.getItem('monthlyData') || '{}');
-                if (!monthlyData[currentMonth]) monthlyData[currentMonth] = {};
-                monthlyData[currentMonth][type] = value;
-                localStorage.setItem('monthlyData', JSON.stringify(monthlyData));
-
-                loadData();
-            }
-
-            document.getElementById('continue-learning').addEventListener('click', function() {
-                alert('Fitur lanjut belajar akan diarahkan ke materi terkait.');
-            });
-
-            document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
-            document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
-
-            document.getElementById('notification-toggle').addEventListener('click', function() {
-                const panel = document.getElementById('notification-panel');
-                const badge = document.getElementById('notification-badge');
-                panel.classList.toggle('show');
-                if (panel.classList.contains('show')) {
-                    badge.style.display = 'none';
-                    localStorage.setItem('notificationsViewed', 'true');
                 }
-            });
 
-            document.querySelectorAll('.sidebar-nav a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href.startsWith('#')) {
-                        e.preventDefault();
-                        smoothScrollToSection(href.substring(1));
+                function renderTheme() {
+                    if (data.theme === 'dark') {
+                        document.documentElement.setAttribute('data-theme', 'dark');
+                        // change icon
+                        el.darkToggle.querySelector('i').className = 'fas fa-sun';
+                    } else {
+                        document.documentElement.removeAttribute('data-theme');
+                        el.darkToggle.querySelector('i').className = 'fas fa-moon';
                     }
-                });
-            });
+                }
 
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.setAttribute('data-theme', 'dark');
-                document.querySelector('#dark-mode-toggle i').className = 'fas fa-sun';
-            }
+                function renderGreeting() {
+                    try {
+                        const now = new Date();
+                        const hour = now.getHours();
+                        let greet = 'Selamat Datang di Dashboard Finansial!';
+                        if (hour < 12) greet = 'Selamat Pagi, semangat menabung!';
+                        else if (hour < 15) greet = 'Selamat Siang, cek keuanganmu hari ini!';
+                        else if (hour < 18) greet = 'Selamat Sore, jangan lupa evaluasi pengeluaran!';
+                        else greet = 'Selamat Malam, rencanakan keuangan esok hari!';
+                        if (el.greeting) el.greeting.textContent = greet;
+                    } catch (e) { /* ignore */ }
+                }
 
-            const notificationsViewed = localStorage.getItem('notificationsViewed');
-            if (notificationsViewed === 'true') {
-                document.getElementById('notification-badge').style.display = 'none';
-            }
-            if (/Android/i.test(navigator.userAgent)) {
-                document.body.classList.add('android-desktop');
-            }
+                // ===== Tips handling =====
+                function ensureTipIndexInitialized() {
+                    // If user had saved index, keep it. Otherwise pick based on day-of-year so it rotates daily automatically.
+                    if (data.tips && Number.isInteger(data.tips.index)) return;
+                    const now = new Date();
+                    // day of year simple calc
+                    const start = new Date(now.getFullYear(), 0, 0);
+                    const diff = now - start;
+                    const oneDay = 1000 * 60 * 60 * 24;
+                    const dayOfYear = Math.floor(diff / oneDay);
+                    data.tips = data.tips || {};
+                    data.tips.index = dayOfYear % TIPS.length;
+                    saveData(data);
+                }
 
-            loadData();
+                function showTipAtIndex(i) {
+                    const idx = ((i % TIPS.length) + TIPS.length) % TIPS.length;
+                    data.tips.index = idx;
+                    saveData(data);
+                    const tip = TIPS[idx];
+                    if (el.dailyTip) el.dailyTip.textContent = tip.text;
+                    if (el.dailyTipSource) el.dailyTipSource.textContent = 'Sumber: ' + tip.source;
+                }
+
+                function nextTip() {
+                    ensureTipIndexInitialized();
+                    showTipAtIndex((data.tips.index || 0) + 1);
+                }
+
+                function prevTip() {
+                    ensureTipIndexInitialized();
+                    showTipAtIndex((data.tips.index || 0) - 1);
+                }
+
+                // Auto-rotate daily based on day-of-year calculation (no timer needed). But also provide small interval to rotate every 24h in case session stays open.
+                function startTipAutoRotate() {
+                    if (tipAutoRotateInterval) clearInterval(tipAutoRotateInterval);
+                    // check every hour to see if day changed -> update tip (cheap)
+                    tipAutoRotateInterval = setInterval(() => {
+                        const prevIdx = data.tips.index;
+                        // recompute index by day-of-year
+                        const now = new Date();
+                        const start = new Date(now.getFullYear(), 0, 0);
+                        const diff = now - start;
+                        const oneDay = 1000 * 60 * 60 * 24;
+                        const dayOfYear = Math.floor(diff / oneDay);
+                        const newIdx = dayOfYear % TIPS.length;
+                        if (newIdx !== prevIdx) {
+                            data.tips.index = newIdx;
+                            saveData(data);
+                            showTipAtIndex(newIdx);
+                        }
+                    }, 1000 * 60 * 60); // every hour
+                }
+
+                // ===== Chart =====
+                function createOrUpdateChart() {
+                    const ctx = el.financeChartCanvas.getContext('2d');
+                    const values = [
+                        Number(data.wallet) || 0,
+                        Number(data.savings) || 0,
+                        Number(data.expenses) || 0,
+                        Number(data.target) || 0
+                    ];
+                    const labels = ['Dompet', 'Tabungan', 'Pengeluaran', 'Target'];
+
+                    if (!financeChart) {
+                        financeChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels,
+                                datasets: [{
+                                    label: 'Jumlah (Rp)',
+                                    data: values,
+                                    backgroundColor: ['#f35b04', '#28a745', '#dc3545', '#ffc107'],
+                                    borderRadius: 6
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function(context) {
+                                                const val = (context.parsed && context.parsed.y !== undefined) ? context.parsed.y : (context.raw || 0);
+                                                return formatCurrency(val);
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            callback: function(val) {
+                                                return formatCurrency(val);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    } else {
+                        financeChart.data.datasets[0].data = values;
+                        financeChart.update();
+                    }
+                }
+
+                // ===== Goals rendering & actions =====
+                function computeProgress(goal) {
+                    const saved = Number(goal.saved) || 0;
+                    const target = Number(goal.targetAmount) || 0;
+                    if (target <= 0) return 0;
+                    return Math.min(100, Math.round((saved / target) * 100));
+                }
+
+                function renderGoals() {
+                    if (!el.goalsList) return;
+                    el.goalsList.innerHTML = '';
+                    if (!Array.isArray(data.goals)) data.goals = [];
+                    data.goals.forEach(goal => {
+                        const percent = computeProgress(goal);
+                        const remaining = Math.max(0, (Number(goal.targetAmount) || 0) - (Number(goal.saved) || 0));
+                        const deadlineText = goal.deadline ? (' Tenggat: ' + goal.deadline) : '';
+                        const div = document.createElement('div');
+                        div.className = 'goal-row';
+                        div.innerHTML = `
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div style="flex:1">
+                                    <strong>${escapeHtml(goal.title)}</strong>
+                                    <div class="text-muted" style="font-size:0.9rem">${escapeHtml(goal.notes || '')}${deadlineText}</div>
+                                    <div class="mt-2">
+                                        <small>Target: ${formatCurrency(goal.targetAmount)} • Tersimpan: ${formatCurrency(goal.saved)} • Sisa: ${formatCurrency(remaining)}</small>
+                                    </div>
+                                </div>
+                                <div style="width:220px; margin-left:16px; text-align:right;">
+                                    <div class="mb-2"><strong>${percent}%</strong></div>
+                                    <div class="progress" style="height:10px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width:${percent}%"></div>
+                                    </div>
+                                    <div class="mt-2 goal-actions">
+                                        <button class="btn btn-outline-secondary btn-sm" data-action="edit" data-id="${goal.id}"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-outline-danger btn-sm" data-action="delete" data-id="${goal.id}"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        el.goalsList.appendChild(div);
+                    });
+
+                    // attach action handlers
+                    el.goalsList.querySelectorAll('[data-action]').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const action = btn.getAttribute('data-action');
+                            const id = Number(btn.getAttribute('data-id'));
+                            if (action === 'edit') editGoal(id);
+                            else if (action === 'delete') deleteGoal(id);
+                        });
+                    });
+                }
+
+                function addGoalFromForm() {
+                    const title = (el.newGoalTitle.value || '').trim();
+                    const targetAmount = parseCurrencyInput(el.newGoalTarget.value || '');
+                    const saved = parseCurrencyInput(el.newGoalSaved.value || '');
+                    const deadline = el.newGoalDeadline.value || '';
+                    if (!title) {
+                        alert('Masukkan judul target.');
+                        return;
+                    }
+                    const newId = data.goals.reduce((m, g) => Math.max(m, g.id || 0), 0) + 1;
+                    const goal = {
+                        id: newId,
+                        title,
+                        targetAmount: Math.max(0, Math.round(targetAmount)),
+                        saved: Math.max(0, Math.round(saved)),
+                        deadline,
+                        notes: ''
+                    };
+                    data.goals.push(goal);
+                    saveData(data);
+                    renderGoals();
+                    // clear inputs
+                    el.newGoalTitle.value = '';
+                    el.newGoalTarget.value = '';
+                    el.newGoalSaved.value = '';
+                    el.newGoalDeadline.value = '';
+                    createOrUpdateChart();
+                }
+
+                function editGoal(id) {
+                    const goal = data.goals.find(g => g.id === id);
+                    if (!goal) return alert('Target tidak ditemukan.');
+                    // simple prompt-based editing for now
+                    const newTitle = prompt('Judul target:', goal.title);
+                    if (newTitle === null) return; // cancel
+                    const newTargetRaw = prompt('Target jumlah (angka, tanpa simbol):', String(goal.targetAmount || '0'));
+                    if (newTargetRaw === null) return;
+                    const newSavedRaw = prompt('Tersimpan saat ini (angka):', String(goal.saved || '0'));
+                    if (newSavedRaw === null) return;
+                    const newDeadline = prompt('Tanggal tenggat (YYYY-MM-DD):', goal.deadline || '');
+                    if (newDeadline === null) return;
+
+                    goal.title = (newTitle || '').trim() || goal.title;
+                    goal.targetAmount = Math.max(0, parseCurrencyInput(String(newTargetRaw)));
+                    goal.saved = Math.max(0, parseCurrencyInput(String(newSavedRaw)));
+                    goal.deadline = newDeadline || goal.deadline;
+                    saveData(data);
+                    renderGoals();
+                    createOrUpdateChart();
+                }
+
+                function deleteGoal(id) {
+                    if (!confirm('Hapus target ini?')) return;
+                    data.goals = data.goals.filter(g => g.id !== id);
+                    saveData(data);
+                    renderGoals();
+                    createOrUpdateChart();
+                }
+
+                // ===== Actions =====
+
+                window.updateData = function updateData(field) {
+                    try {
+                        let inputEl;
+                        switch (field) {
+                            case 'wallet':
+                                inputEl = el.walletInput;
+                                break;
+                            case 'savings':
+                                inputEl = el.savingsInput;
+                                break;
+                            case 'expenses':
+                                inputEl = el.expensesInput;
+                                break;
+                            case 'target':
+                                inputEl = el.targetInput;
+                                break;
+                            default:
+                                console.warn('Field tidak dikenali', field);
+                                return;
+                        }
+                        const raw = inputEl.value || '';
+                        const num = parseCurrencyInput(raw);
+                        if (!Number.isFinite(num)) {
+                            alert('Nilai tidak valid. Masukkan angka yang benar.');
+                            return;
+                        }
+                        data[field] = Math.max(0, Math.round(num));
+                        saveData(data);
+                        renderAll();
+                        const statEl = document.getElementById(field);
+                        if (statEl) {
+                            statEl.style.transition = 'transform 0.15s ease';
+                            statEl.style.transform = 'scale(1.03)';
+                            setTimeout(() => {
+                                statEl.style.transform = '';
+                            }, 200);
+                        }
+                    } catch (e) {
+                        console.error('Gagal updateData', e);
+                    }
+                };
+
+                function markNotificationRead(id) {
+                    const idx = data.notifications.findIndex(n => n.id === id);
+                    if (idx === -1) return;
+                    data.notifications[idx].read = true;
+                    saveData(data);
+                    renderNotifications();
+                }
+
+                function clearAllNotifications() {
+                    data.notifications.forEach(n => n.read = true);
+                    saveData(data);
+                    renderNotifications();
+                }
+
+                function attachListeners() {
+                    if (el.sidebarToggle && el.sidebar) {
+                        el.sidebarToggle.addEventListener('click', () => {
+                            el.sidebar.classList.toggle('show');
+                            el.mainContent.classList.toggle('shifted');
+                        });
+                    }
+
+                    if (el.darkToggle) {
+                        el.darkToggle.addEventListener('click', () => {
+                            data.theme = (data.theme === 'dark') ? 'light' : 'dark';
+                            saveData(data);
+                            renderTheme();
+                        });
+                    }
+
+                    if (el.notificationToggle && el.notificationPanel) {
+                        el.notificationToggle.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            el.notificationPanel.classList.toggle('show');
+                        });
+                        document.addEventListener('click', (ev) => {
+                            if (!el.notificationPanel.contains(ev.target) && !el.notificationToggle.contains(ev.target)) {
+                                el.notificationPanel.classList.remove('show');
+                            }
+                        });
+                    }
+
+                    [
+                        ['walletInput', el.walletInput],
+                        ['savingsInput', el.savingsInput],
+                        ['expensesInput', el.expensesInput],
+                        ['targetInput', el.targetInput],
+                        ['newGoalTarget', el.newGoalTarget],
+                        ['newGoalSaved', el.newGoalSaved]
+                    ].forEach(([name, input]) => {
+                        if (!input) return;
+                        input.addEventListener('blur', () => {
+                            const num = parseCurrencyInput(input.value);
+                            input.value = num === 0 ? '' : formatCurrency(num);
+                        });
+                        input.addEventListener('focus', () => {
+                            // show plain number for easier editing
+                            const num = parseCurrencyInput(input.value);
+                            input.value = num === 0 ? '' : String(num);
+                        });
+                    });
+
+                    if (el.continueLearning) {
+                        el.continueLearning.addEventListener('click', () => {
+                            data.learning.progress = Math.min(100, data.learning.progress + 10);
+                            data.learning.lastTopic = data.learning.lastTopic || {
+                                title: 'Topik Baru',
+                                desc: ''
+                            };
+                            saveData(data);
+                            renderLearning();
+                            createOrUpdateChart();
+                        });
+                    }
+
+                    if (el.nextTipBtn) el.nextTipBtn.addEventListener('click', () => nextTip());
+                    if (el.prevTipBtn) el.prevTipBtn.addEventListener('click', () => prevTip());
+
+                    if (el.addGoalBtn) el.addGoalBtn.addEventListener('click', () => addGoalFromForm());
+
+                    if (el.refreshGoalsBtn) el.refreshGoalsBtn.addEventListener('click', () => renderGoals());
+
+                    // Allow clearing notifications by pressing 'c' while focus on page (convenience)
+                    document.addEventListener('keydown', (ev) => {
+                        if (ev.key === 'c' && (ev.ctrlKey || ev.metaKey)) {
+                            ev.preventDefault();
+                            clearAllNotifications();
+                        }
+                    });
+                }
+
+                // ===== Render all =====
+                function renderAll() {
+                    renderGreeting();
+                    renderStats();
+                    renderLearning();
+                    renderNotifications();
+                    renderTheme();
+                    createOrUpdateChart();
+                    renderGoals();
+                    ensureTipIndexInitialized();
+                    showTipAtIndex(data.tips.index || 0);
+
+                    // Tip sederhana: sesuaikan tip berdasarkan pengeluaran
+                    if (el.dailyTip) {
+                        if ((Number(data.expenses) || 0) > (Number(data.savings || 0) + Number(data.wallet || 0)) * 0.6) {
+                            // prepend a warning if expenses relatively large
+                            // but still rotate tips, so we will not overwrite tip array; we show an additional message in console
+                            console.debug('Pengeluaran tinggi dibanding aset — sarankan evaluasi.');
+                        }
+                    }
+                }
+
+                // ===== Initialization =====
+                function init() {
+                    // Ensure the input fields show formatted values
+                    renderAll();
+                    attachListeners();
+                    // If there are no notifications, hide badge
+                    renderNotifications();
+                    // start tip auto-rotate process (checks daily change)
+                    startTipAutoRotate();
+                }
+
+                // Run init on DOMContentLoaded (if script placed before end of body, DOM is ready already)
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', init);
+                } else {
+                    init();
+                }
+
+                // Expose some helpers for console debugging
+                window.cfDashboard = {
+                    getData: () => structuredClone(data),
+                    save: () => {
+                        saveData(data);
+                    },
+                    resetToDefault: () => {
+                        data = structuredClone(DEFAULT_DATA);
+                        saveData(data);
+                        renderAll();
+                    },
+                    formatCurrency,
+                    parseCurrencyInput,
+                    nextTip,
+                    prevTip
+                };
+
+            })();
         </script>
 </body>
 
