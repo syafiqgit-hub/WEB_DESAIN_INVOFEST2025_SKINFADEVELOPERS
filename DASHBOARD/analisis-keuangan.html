@@ -572,7 +572,6 @@
                 </div>
             </div>
 
-            <!-- Tips card (rotating tips) -->
             <div class="card" id="tips-card">
                 <div class="card-header">
                     <i class="fas fa-lightbulb"></i> Tips Finansial untuk Anda
@@ -606,7 +605,6 @@
             (function() {
                 'use strict';
 
-                // Use the same key as dashboard so data "nyambung"
                 const LS_KEY = 'cf_dashboard_data_v1';
 
                 const DEFAULT_DATA = {
@@ -642,7 +640,6 @@
                     source: 'Budgeting'
                 }];
 
-                // Helpers
                 const currencyFormatter = new Intl.NumberFormat('id-ID', {
                     style: 'currency',
                     currency: 'IDR',
@@ -678,7 +675,6 @@
                     return document.getElementById(id);
                 }
 
-                // Refs
                 const refs = {
                     totalBalance: $('total-balance'),
                     monthlyExpenses: $('monthly-expenses'),
@@ -696,7 +692,6 @@
                     prevTipBtn: $('prev-analysis-tip')
                 };
 
-                // Compute target achievement: If goals array available, compute sum(saved)/sum(target)
                 function computeTargetAchievement(data) {
                     if (Array.isArray(data.goals) && data.goals.length > 0) {
                         const totalTarget = data.goals.reduce((s, g) => s + (Number(g.targetAmount) || 0), 0);
@@ -704,7 +699,6 @@
                         if (totalTarget <= 0) return 0;
                         return Math.min(100, Math.round((totalSaved / totalTarget) * 100));
                     }
-                    // fallback to top-level target
                     if (Number(data.target) > 0) {
                         const totalAssets = (Number(data.wallet) || 0) + (Number(data.savings) || 0);
                         return Math.min(100, Math.round((totalAssets / Number(data.target)) * 100));
@@ -721,7 +715,6 @@
                     const totalBalance = wallet + savings;
                     const remaining = totalBalance - expenses;
 
-                    // balance status
                     let balanceStatus = {
                         text: 'Baik',
                         class: 'bg-success'
@@ -746,7 +739,6 @@
                         };
                     }
 
-                    // expense status
                     let expenseStatus = {
                         text: 'Normal',
                         class: 'bg-success'
@@ -776,7 +768,6 @@
                         };
                     }
 
-                    // remaining status
                     let remainingStatus = {
                         text: 'Netral',
                         class: 'bg-info'
@@ -794,7 +785,6 @@
                         class: 'bg-info'
                     };
 
-                    // target percent using goals or global target
                     const percent = computeTargetAchievement(data);
 
                     return {
@@ -811,7 +801,6 @@
                     };
                 }
 
-                // UI helpers
                 function setBadge(el, text, variantClass) {
                     if (!el) return;
                     el.textContent = text;
@@ -828,13 +817,11 @@
                         .replaceAll("'", '&#039;');
                 }
 
-                // Tips: rotate and manual controls
                 function ensureTipIndex(data) {
                     if (!data.tips) data.tips = {
                         index: null
                     };
                     if (Number.isInteger(data.tips.index)) return;
-                    // pick based on day-of-year so it changes daily
                     const now = new Date();
                     const start = new Date(now.getFullYear(), 0, 0);
                     const diff = now - start;
@@ -866,15 +853,12 @@
                     showTipAtIndex((data.tips.index || 0) - 1, data);
                 }
 
-                // Render target progress circle background using conic-gradient
                 function setProgressCircle(el, percent) {
                     if (!el) return;
                     const deg = Math.max(0, Math.min(100, percent)) * 3.6;
-                    // primary color fill then background
                     el.style.background = `conic-gradient(var(--primary-color) ${deg}deg, #e9ecef ${deg}deg)`;
                 }
 
-                // Build insights based on analysis result
                 function buildInsights(res, data) {
                     const out = [];
                     if (res.totalBalance <= 0) {
@@ -900,7 +884,6 @@
                         });
                     }
 
-                    // expense ratio insight
                     if (res.totalBalance > 0) {
                         const ratio = Math.round((res.expenses / res.totalBalance) * 100);
                         if (ratio > 60) {
@@ -927,7 +910,6 @@
                         }
                     }
 
-                    // goals insight (if any)
                     if (Array.isArray(data.goals) && data.goals.length > 0) {
                         const short = data.goals.slice(0, 3).map(g => `${g.title} (${Math.min(100, Math.round((g.saved / g.targetAmount) * 100 || 0))}%)`).join(', ');
                         out.push({
@@ -948,7 +930,6 @@
                     return out;
                 }
 
-                // Render everything
                 function renderAll() {
                     const data = loadData();
                     renderTheme(data.theme);
@@ -966,7 +947,6 @@
                     if (refs.targetPercentSpan) refs.targetPercentSpan.textContent = `${r.percent}%`;
                     setProgressCircle(refs.targetProgressCircle, r.percent);
 
-                    // Insights
                     if (refs.insightsContainer) {
                         refs.insightsContainer.innerHTML = '';
                         const insights = buildInsights(r, data);
@@ -984,12 +964,10 @@
                         });
                     }
 
-                    // Tips
                     ensureTipIndex(data);
                     showTipAtIndex(data.tips.index || 0, data);
                 }
 
-                // Theme UI
                 function renderTheme(theme) {
                     if (theme === 'dark') {
                         document.documentElement.setAttribute('data-theme', 'dark');
@@ -1002,7 +980,6 @@
                     }
                 }
 
-                // Attach listeners
                 function attachListeners() {
                     const dm = document.getElementById('dark-mode-toggle');
                     if (dm) {
@@ -1027,18 +1004,14 @@
                     if (refs.nextTipBtn) refs.nextTipBtn.addEventListener('click', () => nextTip());
                     if (refs.prevTipBtn) refs.prevTipBtn.addEventListener('click', () => prevTip());
 
-                    // update when other tab changes localStorage
                     window.addEventListener('storage', (e) => {
                         if (e.key === LS_KEY) renderAll();
                     });
 
-                    // refresh on focus
                     window.addEventListener('focus', renderAll);
 
-                    // rotate tip daily: check every hour whether day-of-year changed
                     setInterval(() => {
                         const d = loadData();
-                        // recompute day-based index
                         const now = new Date();
                         const start = new Date(now.getFullYear(), 0, 0);
                         const diff = now - start;
@@ -1053,10 +1026,9 @@
                             saveData(d);
                             showTipAtIndex(newIdx, d);
                         }
-                    }, 1000 * 60 * 60); // every hour
+                    }, 1000 * 60 * 60);
                 }
 
-                // Init
                 function init() {
                     renderAll();
                     attachListeners();
@@ -1068,7 +1040,6 @@
                     init();
                 }
 
-                // expose for console
                 window.cfAnalysis = {
                     render: renderAll,
                     nextTip,

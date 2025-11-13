@@ -512,7 +512,6 @@
                 height: 250px;
             }
         }
-        /* Android-specific overrides for hero section */
         
         .android-desktop .hero h1 {
             font-size: 2.5rem !important;
@@ -553,7 +552,6 @@
         #greeting {
             text-align: left;
         }
-        /* small styles for goals list */
         
         .goal-row {
             padding: 12px 0;
@@ -581,7 +579,6 @@
             <i class="fas fa-bell"></i> Notifikasi
         </div>
         <div class="notification-panel-body">
-            <!-- notifications rendered dynamically -->
         </div>
     </div>
 
@@ -714,7 +711,6 @@
             </div>
 
 
-            <!-- Goals: more detailed personal financial targets -->
             <div class="card" id="goals">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <div><i class="fas fa-bullseye"></i> Target Keuangan Pribadi</div>
@@ -724,7 +720,6 @@
                 </div>
                 <div class="card-body">
                     <div id="goals-list">
-                        <!-- goals rendered dynamically -->
                     </div>
 
                     <hr>
@@ -760,12 +755,9 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            // Dashboard JavaScript untuk dashboard.html
-            // Menyimpan semua ke localStorage, meng-handle UI, dan menggambar Chart.js
             'use strict';
 
             (function() {
-                // ===== Helper =====
                 const LS_KEY = 'cf_dashboard_data_v1';
 
                 const DEFAULT_DATA = {
@@ -774,7 +766,7 @@
                     expenses: 0,
                     target: 0,
                     learning: {
-                        progress: 0, // 0..100
+                        progress: 0,
                         lastTopic: {
                             title: 'Dasar Pengelolaan Keuangan',
                             desc: 'Pelajari cara mengatur budget harian dan bulanan'
@@ -816,9 +808,9 @@
                         notes: 'Reksa dana bulanan'
                     }],
                     tips: {
-                        index: null // will be used to track current tip
+                        index: null
                     },
-                    theme: 'light' // 'light' or 'dark'
+                    theme: 'light'
                 };
 
                 const TIPS = [{
@@ -849,9 +841,7 @@
                         const raw = localStorage.getItem(LS_KEY);
                         if (!raw) return structuredClone(DEFAULT_DATA);
                         const parsed = JSON.parse(raw);
-                        // Ensure structure has required fields (simple merge)
                         const merged = Object.assign(structuredClone(DEFAULT_DATA), parsed);
-                        // if tips index is missing set to null so we can initialize later
                         if (!merged.tips) merged.tips = {
                             index: null
                         };
@@ -870,7 +860,6 @@
                     }
                 }
 
-                // Format angka ke IDR tanpa desimal
                 const currencyFormatter = new Intl.NumberFormat('id-ID', {
                     style: 'currency',
                     currency: 'IDR',
@@ -882,17 +871,14 @@
                     return currencyFormatter.format(Math.round(num));
                 }
 
-                // Parse input teks menjadi angka (menghapus non-digit)
                 function parseCurrencyInput(str) {
                     if (typeof str !== 'string') return 0;
-                    // Hapus semua karakter bukan digit atau minus
                     const cleaned = str.replace(/[^0-9\-]/g, '');
                     if (cleaned === '' || cleaned === '-') return 0;
                     const parsed = Number(cleaned);
                     return Number.isFinite(parsed) ? parsed : 0;
                 }
 
-                // ===== UI references =====
                 const el = {
                     sidebar: document.getElementById('sidebar'),
                     sidebarToggle: document.getElementById('sidebar-toggle'),
@@ -929,12 +915,10 @@
                     refreshGoalsBtn: document.getElementById('refresh-goals')
                 };
 
-                // ===== App state =====
                 let data = loadData();
                 let financeChart = null;
                 let tipAutoRotateInterval = null;
 
-                // ===== Utility =====
                 function escapeHtml(unsafe) {
                     if (typeof unsafe !== 'string') return '';
                     return unsafe
@@ -945,14 +929,12 @@
                         .replaceAll("'", '&#039;');
                 }
 
-                // ===== Render functions =====
                 function renderStats() {
                     el.walletStat.textContent = formatCurrency(data.wallet);
                     el.savingsStat.textContent = formatCurrency(data.savings);
                     el.expensesStat.textContent = formatCurrency(data.expenses);
                     el.targetStat.textContent = formatCurrency(data.target);
 
-                    // Update input placeholders / values to formatted
                     if (document.activeElement !== el.walletInput) el.walletInput.value = formatCurrency(data.wallet);
                     if (document.activeElement !== el.savingsInput) el.savingsInput.value = formatCurrency(data.savings);
                     if (document.activeElement !== el.expensesInput) el.expensesInput.value = formatCurrency(data.expenses);
@@ -971,16 +953,14 @@
 
                 function renderNotifications() {
                     const panelBody = el.notificationPanel.querySelector('.notification-panel-body');
-                    // Hapus semua notifikasi di panel body lalu render ulang
                     panelBody.innerHTML = '';
                     data.notifications.forEach(n => {
                         const div = document.createElement('div');
                         div.className = 'notification';
                         div.dataset.id = n.id;
-                        // icon may include classes (e.g. 'fa-star text-success')
                         div.innerHTML = `<i class="fas ${escapeHtml(n.icon)} me-2"></i> ${escapeHtml(n.title)}
         <small class="text-muted d-block">${escapeHtml(n.time)}</small>`;
-                        if (!n.read) div.style.background = ''; // keep default styling; could highlight unread
+                        if (!n.read) div.style.background = '';
                         div.addEventListener('click', () => {
                             markNotificationRead(n.id);
                         });
@@ -1001,7 +981,6 @@
                 function renderTheme() {
                     if (data.theme === 'dark') {
                         document.documentElement.setAttribute('data-theme', 'dark');
-                        // change icon
                         el.darkToggle.querySelector('i').className = 'fas fa-sun';
                     } else {
                         document.documentElement.removeAttribute('data-theme');
@@ -1019,15 +998,12 @@
                         else if (hour < 18) greet = 'Selamat Sore, jangan lupa evaluasi pengeluaran!';
                         else greet = 'Selamat Malam, rencanakan keuangan esok hari!';
                         if (el.greeting) el.greeting.textContent = greet;
-                    } catch (e) { /* ignore */ }
+                    } catch (e) { }
                 }
 
-                // ===== Tips handling =====
                 function ensureTipIndexInitialized() {
-                    // If user had saved index, keep it. Otherwise pick based on day-of-year so it rotates daily automatically.
                     if (data.tips && Number.isInteger(data.tips.index)) return;
                     const now = new Date();
-                    // day of year simple calc
                     const start = new Date(now.getFullYear(), 0, 0);
                     const diff = now - start;
                     const oneDay = 1000 * 60 * 60 * 24;
@@ -1056,13 +1032,10 @@
                     showTipAtIndex((data.tips.index || 0) - 1);
                 }
 
-                // Auto-rotate daily based on day-of-year calculation (no timer needed). But also provide small interval to rotate every 24h in case session stays open.
                 function startTipAutoRotate() {
                     if (tipAutoRotateInterval) clearInterval(tipAutoRotateInterval);
-                    // check every hour to see if day changed -> update tip (cheap)
                     tipAutoRotateInterval = setInterval(() => {
                         const prevIdx = data.tips.index;
-                        // recompute index by day-of-year
                         const now = new Date();
                         const start = new Date(now.getFullYear(), 0, 0);
                         const diff = now - start;
@@ -1074,10 +1047,9 @@
                             saveData(data);
                             showTipAtIndex(newIdx);
                         }
-                    }, 1000 * 60 * 60); // every hour
+                    }, 1000 * 60 * 60);
                 }
 
-                // ===== Chart =====
                 function createOrUpdateChart() {
                     const ctx = el.financeChartCanvas.getContext('2d');
                     const values = [
@@ -1134,7 +1106,6 @@
                     }
                 }
 
-                // ===== Goals rendering & actions =====
                 function computeProgress(goal) {
                     const saved = Number(goal.saved) || 0;
                     const target = Number(goal.targetAmount) || 0;
@@ -1176,7 +1147,6 @@
                         el.goalsList.appendChild(div);
                     });
 
-                    // attach action handlers
                     el.goalsList.querySelectorAll('[data-action]').forEach(btn => {
                         btn.addEventListener('click', (e) => {
                             const action = btn.getAttribute('data-action');
@@ -1208,7 +1178,6 @@
                     data.goals.push(goal);
                     saveData(data);
                     renderGoals();
-                    // clear inputs
                     el.newGoalTitle.value = '';
                     el.newGoalTarget.value = '';
                     el.newGoalSaved.value = '';
@@ -1219,9 +1188,8 @@
                 function editGoal(id) {
                     const goal = data.goals.find(g => g.id === id);
                     if (!goal) return alert('Target tidak ditemukan.');
-                    // simple prompt-based editing for now
                     const newTitle = prompt('Judul target:', goal.title);
-                    if (newTitle === null) return; // cancel
+                    if (newTitle === null) return;
                     const newTargetRaw = prompt('Target jumlah (angka, tanpa simbol):', String(goal.targetAmount || '0'));
                     if (newTargetRaw === null) return;
                     const newSavedRaw = prompt('Tersimpan saat ini (angka):', String(goal.saved || '0'));
@@ -1245,8 +1213,6 @@
                     renderGoals();
                     createOrUpdateChart();
                 }
-
-                // ===== Actions =====
 
                 window.updateData = function updateData(field) {
                     try {
@@ -1346,7 +1312,6 @@
                             input.value = num === 0 ? '' : formatCurrency(num);
                         });
                         input.addEventListener('focus', () => {
-                            // show plain number for easier editing
                             const num = parseCurrencyInput(input.value);
                             input.value = num === 0 ? '' : String(num);
                         });
@@ -1372,7 +1337,6 @@
 
                     if (el.refreshGoalsBtn) el.refreshGoalsBtn.addEventListener('click', () => renderGoals());
 
-                    // Allow clearing notifications by pressing 'c' while focus on page (convenience)
                     document.addEventListener('keydown', (ev) => {
                         if (ev.key === 'c' && (ev.ctrlKey || ev.metaKey)) {
                             ev.preventDefault();
@@ -1381,7 +1345,6 @@
                     });
                 }
 
-                // ===== Render all =====
                 function renderAll() {
                     renderGreeting();
                     renderStats();
@@ -1393,35 +1356,26 @@
                     ensureTipIndexInitialized();
                     showTipAtIndex(data.tips.index || 0);
 
-                    // Tip sederhana: sesuaikan tip berdasarkan pengeluaran
                     if (el.dailyTip) {
                         if ((Number(data.expenses) || 0) > (Number(data.savings || 0) + Number(data.wallet || 0)) * 0.6) {
-                            // prepend a warning if expenses relatively large
-                            // but still rotate tips, so we will not overwrite tip array; we show an additional message in console
                             console.debug('Pengeluaran tinggi dibanding aset — sarankan evaluasi.');
                         }
                     }
                 }
 
-                // ===== Initialization =====
                 function init() {
-                    // Ensure the input fields show formatted values
                     renderAll();
                     attachListeners();
-                    // If there are no notifications, hide badge
                     renderNotifications();
-                    // start tip auto-rotate process (checks daily change)
                     startTipAutoRotate();
                 }
 
-                // Run init on DOMContentLoaded (if script placed before end of body, DOM is ready already)
                 if (document.readyState === 'loading') {
                     document.addEventListener('DOMContentLoaded', init);
                 } else {
                     init();
                 }
 
-                // Expose some helpers for console debugging
                 window.cfDashboard = {
                     getData: () => structuredClone(data),
                     save: () => {
