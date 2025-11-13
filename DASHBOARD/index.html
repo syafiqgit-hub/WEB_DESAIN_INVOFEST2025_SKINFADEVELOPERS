@@ -185,100 +185,70 @@
         }
         
         .hero {
-            position: relative;
-            background: linear-gradient(120deg, #f35b04, #f35b04, #f35b04, #da5305);
-            background-size: 400% 400%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 60px 20px;
+            padding: 50px 30px;
             text-align: center;
-            border-radius: 20px;
+            border-radius: 15px;
             margin-bottom: 40px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            animation: gradientShift 10s ease infinite, fadeInUp 0.8s ease-out;
-            overflow: hidden;
+            box-shadow: 0 5px 20px var(--shadow);
+            animation: fadeInUp 0.8s ease-out;
+            transition: all 0.3s ease;
         }
-        
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
-            animation: pulse 8s infinite;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
+        /* Teks di hero */
         
         .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 12px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
         }
         
         .hero p {
-            font-size: 1.3rem;
-            opacity: 0.95;
-            font-weight: 400;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            text-align: left;
         }
-        /* animasi gradasi berganti warna */
+        /* RESPONSIVE STYLING */
         
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
+        @media (max-width: 1024px) {
+            .hero {
+                padding: 40px 25px;
             }
-            50% {
-                background-position: 100% 50%;
+            .hero h1 {
+                font-size: 2rem;
             }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        /* animasi cahaya lembut */
-        
-        @keyframes pulse {
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 0.6;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 1;
+            .hero p {
+                font-size: 1.1rem;
+                text-align: center;
             }
         }
-        /* animasi muncul dari bawah */
-        
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        /* Responsif buat mobile */
         
         @media (max-width: 768px) {
             .hero {
-                padding: 40px 15px;
-                border-radius: 15px;
-                margin-top: 30px;
+                padding: 35px 20px;
             }
             .hero h1 {
                 font-size: 1.8rem;
+                line-height: 1.3;
             }
             .hero p {
                 font-size: 1rem;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 30px 15px;
+                border-radius: 10px;
+            }
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            .hero p {
+                font-size: 0.95rem;
+                text-align: center;
             }
         }
         
@@ -586,6 +556,9 @@
             .chart-container {
                 height: 250px;
             }
+            .hero {
+                margin-top: 30px;
+            }
         }
         
         .android-desktop .hero h1 {
@@ -636,6 +609,109 @@
         .goal-actions button {
             margin-left: 8px;
         }
+        
+        #tips {
+            margin: 20px auto;
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            transition: 0.3s ease;
+        }
+        
+        #tips .card-header {
+            font-weight: 600;
+            font-size: 1.1rem;
+            background: #f35b04;
+            color: white;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        
+        #tips .card-body {
+            padding: 15px 20px;
+        }
+        
+        #tips .btn-custom {
+            color: white;
+            border: none;
+        }
+        
+        @media (max-width: 768px) {
+            #tips .card-body {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: left;
+            }
+            #tips .tip-buttons {
+                margin-top: 12px;
+                text-align: left;
+            }
+            #tips .tip-buttons button {
+                width: 48%;
+                font-size: 0.9rem;
+            }
+            #tips .tip-buttons #next-tip {
+                margin-left: 4%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #tips .card-header {
+                font-size: 1rem;
+            }
+            #tips .tip-buttons button {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            #tips .tip-buttons #next-tip {
+                margin-left: 0;
+            }
+        }
+        
+        #goals {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        #goals .card-header {
+            font-size: 1rem;
+        }
+        
+        #goals .card-body {
+            padding: 1rem;
+        }
+        
+        #goals .row.g-2 .col-md-4,
+        #goals .row.g-2 .col-md-3,
+        #goals .row.g-2 .col-md-2 {
+            flex: 1 1 auto;
+            min-width: 100px;
+        }
+        
+        @media (max-width: 768px) {
+            #goals .row.g-2 .col-md-4,
+            #goals .row.g-2 .col-md-3,
+            #goals .row.g-2 .col-md-2 {
+                flex: 0 0 100%;
+            }
+            #goals .mb-3 h6 {
+                font-size: 0.9rem;
+            }
+            #goals .mt-2.text-end {
+                text-align: center !important;
+            }
+            #goals .btn-custom {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #goals {
+                padding: 0.5rem;
+            }
+            #goals .card-body {
+                padding: 0.5rem;
+            }
+        }
     </style>
 </head>
 
@@ -675,12 +751,9 @@
     <div class="main-content" id="main-content">
         <div class="container my-4">
             <div class="hero" id="hero">
-                <div class="hero-content">
-                    <h1 id="greeting">Selamat Datang di Dashboard Finansial!</h1>
-                    <p style="text-align: left;">Kelola keuanganmu dengan cerdas hari ini 💰</p>
-                </div>
+                <h1 id="greeting">Selamat Datang di Dashboard Finansial!</h1>
+                <p style="text-align: left;">Kelola keuanganmu dengan cerdas hari ini 💰</p>
             </div>
-
 
             <div class="card" id="financial-data">
                 <div class="card-header">Data Finansial Anda</div>
@@ -783,7 +856,7 @@
                     </div>
                     <div class="text-end" style="min-width:160px;">
                         <button class="btn btn-outline-secondary btn-sm" id="prev-tip"><i class="fas fa-chevron-left"></i></button>
-                        <button class="btn btn-custom btn-sm" id="next-tip" style="margin-left:8px;">Tip Berikutnya</button>
+                        <button class="btn btn-custom btn-sm" id="next-tip" style="margin-left:8px;">Tips Berikutnya</button>
                     </div>
                 </div>
             </div>
@@ -826,6 +899,108 @@
             </div>
 
         </div>
+        <div class="text-center">
+            <a href="#" id="logoutBtn">
+        Logout
+    </a>
+        </div>
+
+        <style>
+            #logoutBtn {
+                background-color: #e74c3c !important;
+                color: white !important;
+                padding: 0.5rem 1rem;
+                border-radius: 0.25rem;
+                text-decoration: none;
+                display: inline-block;
+                transition: background-color 0.3s ease;
+            }
+            
+            #logoutBtn:hover {
+                background-color: #c0392b !important;
+            }
+            
+            .mobile-bottom-nav {
+                position: fixed;
+                bottom: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 92%;
+                max-width: 450px;
+                background: #ffffff;
+                border-radius: 30px;
+                box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+                display: none;
+                justify-content: space-around;
+                align-items: center;
+                padding: 10px 0;
+                z-index: 99;
+                border: 1px solid #ddd;
+            }
+            
+            .mobile-bottom-nav a {
+                color: black;
+                text-align: center;
+                flex: 1;
+                text-decoration: none;
+                font-size: 12px;
+                transition: all 0.3s ease;
+            }
+            
+            .mobile-bottom-nav a i {
+                font-size: 20px;
+                display: block;
+                margin-bottom: 4px;
+            }
+            
+            .mobile-bottom-nav a.active {
+                color: #f35b04;
+            }
+            
+            .mobile-bottom-nav a:hover {
+                color: #f35b04;
+            }
+            
+            @media (max-width: 768px) {
+                .mobile-bottom-nav {
+                    display: flex;
+                }
+                .sembunyi {
+                    display: none;
+                }
+            }
+        </style>
+
+        <div class="mobile-bottom-nav">
+            <a href="../index.html" data-name="home"> <i class="fa-solid fa-house"></i> <span>Home</span> </a>
+            <a href="../fitur-detail-1.html" data-name="fitur">
+                <i class="fa-solid fa-puzzle-piece"></i>
+                <span>Fitur</span>
+            </a>
+            <a href="#" id="dashboard-link" data-name="dashboard" class="active">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="../login.html" data-name="akun"> <i class="fa-solid fa-user"></i> <span>Akun</span> </a>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const logoutBtn = document.getElementById("logoutBtn");
+
+                if (localStorage.getItem("isLoggedIn") !== "true") {
+                    window.location.href = "../login.html";
+                    return;
+                }
+
+                logoutBtn.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem("isLoggedIn");
+                    localStorage.removeItem("loggedInUser");
+                    alert("Kamu telah logout!");
+                    window.location.href = "../index.html";
+                });
+            });
+        </script>
 
         <footer>
             © 2025 All Rights Reserved Cerdas Finansial. Dibuat Oleh Skinfa Developers
@@ -910,7 +1085,7 @@
                     text: 'Bayar utang berbunga tinggi terlebih dahulu untuk menurunkan beban bunga.',
                     source: 'Strategi Utang'
                 }, {
-                    text: 'Tentukan tujuan keuangan yang spesifik: nominal dan tenggat waktu.',
+                    text: 'Tentukan tujuan keuangan yang spesifik: nominal dan tanggal waktu.',
                     source: 'Perencanaan'
                 }];
 
@@ -951,6 +1126,7 @@
 
                 function parseCurrencyInput(str) {
                     if (typeof str !== 'string') return 0;
+                    // Hapus semua karakter bukan digit atau minus
                     const cleaned = str.replace(/[^0-9\-]/g, '');
                     if (cleaned === '' || cleaned === '-') return 0;
                     const parsed = Number(cleaned);
@@ -1076,7 +1252,7 @@
                         else if (hour < 18) greet = 'Selamat Sore, jangan lupa evaluasi pengeluaran!';
                         else greet = 'Selamat Malam, rencanakan keuangan esok hari!';
                         if (el.greeting) el.greeting.textContent = greet;
-                    } catch (e) { }
+                    } catch (e) { /* ignore */ }
                 }
 
                 function ensureTipIndexInitialized() {
@@ -1198,7 +1374,7 @@
                     data.goals.forEach(goal => {
                         const percent = computeProgress(goal);
                         const remaining = Math.max(0, (Number(goal.targetAmount) || 0) - (Number(goal.saved) || 0));
-                        const deadlineText = goal.deadline ? (' Tenggat: ' + goal.deadline) : '';
+                        const deadlineText = goal.deadline ? (' tanggal: ' + goal.deadline) : '';
                         const div = document.createElement('div');
                         div.className = 'goal-row';
                         div.innerHTML = `
@@ -1272,7 +1448,7 @@
                     if (newTargetRaw === null) return;
                     const newSavedRaw = prompt('Tersimpan saat ini (angka):', String(goal.saved || '0'));
                     if (newSavedRaw === null) return;
-                    const newDeadline = prompt('Tanggal tenggat (YYYY-MM-DD):', goal.deadline || '');
+                    const newDeadline = prompt('Tanggal tanggal (YYYY-MM-DD):', goal.deadline || '');
                     if (newDeadline === null) return;
 
                     goal.title = (newTitle || '').trim() || goal.title;
@@ -1291,6 +1467,7 @@
                     renderGoals();
                     createOrUpdateChart();
                 }
+
 
                 window.updateData = function updateData(field) {
                     try {
@@ -1472,6 +1649,16 @@
 
             })();
         </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const isLoggedIn = localStorage.getItem("isLoggedIn");
+                if (isLoggedIn !== "true") {
+                    window.location.href = "../login.html";
+                }
+            });
+        </script>
+
 </body>
 
 </html>

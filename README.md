@@ -4,14 +4,14 @@
 1. Syafiq Bamazruk  
 2. Kevan Mohammed Asghar
 
- Judul Project: Website Edukasi Finansial “Cerdas Finansial”
- Tema: Edukasi Finansial untuk Remaja dan Dewasa | “Innovation Beyond Limits: Empowering the Future with IT”
+## Judul Project: Website Edukasi Finansial “Cerdas Finansial”
+## Tema: Edukasi Finansial untuk Remaja dan Dewasa | “Innovation Beyond Limits: Empowering the Future with IT - From Creation to Innovation”
 
 ## 💡 Latar Belakang
 
-Di era modern saat ini, masih banyak remaja dan dewasa muda yang belum memahami cara mengelola keuangan dengan baik. Banyak dari mereka belum mengenal konsep dasar seperti perencanaan anggaran, menabung, investasi, maupun manajemen pengeluaran. Akibatnya, muncul berbagai masalah finansial di usia muda seperti boros, terlilit hutang, atau tidak punya tabungan jangka panjang.
+Di era modern ini, banyak remaja dan dewasa muda yang belum memiliki pemahaman yang cukup tentang pengelolaan keuangan pribadi. Sebagian besar dari mereka belum mengenal konsep dasar seperti perencanaan anggaran, menabung, investasi, maupun manajemen pengeluaran secara efektif. Akibatnya, tidak sedikit yang menghadapi masalah finansial di usia muda, mulai dari pengeluaran boros, terlilit hutang, hingga minimnya tabungan jangka panjang.
 
-Melihat hal tersebut, saya terinspirasi untuk membuat website edukasi finansial yang menarik, interaktif, dan mudah dipahami, agar generasi muda bisa belajar mengatur keuangan secara cerdas sejak dini.
+Melihat kondisi tersebut, kami terinspirasi untuk menciptakan sebuah website edukasi finansial yang menarik, interaktif, dan mudah dipahami. Tujuannya adalah memberikan wadah bagi generasi muda untuk belajar mengatur keuangan secara cerdas sejak dini, sehingga mereka dapat mengembangkan kebiasaan finansial yang sehat dan mempersiapkan masa depan dengan lebih bijak.
 
 ## ⚠️ Permasalahan
 
@@ -25,12 +25,21 @@ Website Cerdas Finansial hadir sebagai solusi digital edukatif yang membantu pen
 Dengan desain yang sangat menarik, responsif, dan berfokus pada kesempurnaan UI/UX, website ini mempunyai tampilan yang mudah dipahami, profesional, dan nyaman digunakan di semua perangkat.
 Setiap elemen dirancang dengan interaksi yang halus, layout modern, serta performa yang ringan, sehingga pengguna dapat belajar, menghitung, dan merencanakan keuangan mereka secara mandiri dengan pengalaman terbaik.
 
-## 🎯 Tujuan
+## 🎯 Tujuan & Manafaat
 
-- Meningkatkan literasi finansial di kalangan remaja dan dewasa.
-- Menyediakan platform belajar keuangan digital yang seru dan mudah dipahami.
-- Membantu pengguna dalam mengelola uang, menabung, dan berinvestasi dengan bijak.
-- Mendorong generasi muda agar lebih siap menghadapi tantangan finansial masa depan.
+Website Cerdas Finansial memiliki tujuan utama untuk meningkatkan literasi finansial di kalangan remaja dan dewasa muda. Melalui platform ini, pengguna dapat belajar mengenai perencanaan anggaran, menabung, dan berinvestasi dengan cara yang mudah dipahami dan menyenangkan.
+
+Beberapa manfaat utama dari website ini antara lain:
+
+- Meningkatkan Pemahaman Finansial: Membantu generasi muda memahami konsep dasar manajemen keuangan, mulai dari anggaran hingga investasi.
+
+- Platform Belajar Interaktif: Menyediakan pengalaman belajar yang seru melalui fitur-fitur interaktif seperti kalkulator anggaran, quiz edukasi, dan dashboard visual.
+
+- Mendukung Pengambilan Keputusan Finansial: Membantu pengguna merencanakan pengeluaran, menabung sesuai target, dan membuat keputusan investasi dengan lebih bijak.
+
+- Persiapan Masa Depan yang Lebih Baik: Mendorong generasi muda untuk memiliki kebiasaan finansial yang sehat dan siap menghadapi tantangan ekonomi di masa depan.
+
+- Dengan tujuan dan manfaat tersebut, Cerdas Finansial tidak hanya berfungsi sebagai media edukasi, tetapi juga sebagai alat praktis untuk membentuk kebiasaan finansial yang cerdas, disiplin, dan berorientasi pada masa depan.
 
 ## 🧠 Fitur Unggulan
 
@@ -54,7 +63,7 @@ Setiap elemen dirancang dengan interaksi yang halus, layout modern, serta perfor
 
 ## 📂 Struktur Project
 ```
-SYAFIQBAMAZRUK_ITFEST.UHO_WEBDESIGN/
+WEB_DESAIN_INVOFEST2025_SKINFADEVELOPERS/
 │
 ├── assets/
 │   ├── css/              # Berisi file stylesheet (tampilan dan desain)
@@ -63,6 +72,7 @@ SYAFIQBAMAZRUK_ITFEST.UHO_WEBDESIGN/
 │
 ├── DASHBOARD/
 │   └── index.html        # Halaman dashboard interaktif pengguna
+│   └── analisis-keuangan.html  # Halaman dashboard interaktif pengguna
 │
 ├── _DOKUMENTASI.png      # Gambar dokumentasi proyek
 ├── .htaccess             # Pengaturan URL rewrite agar link lebih rapi

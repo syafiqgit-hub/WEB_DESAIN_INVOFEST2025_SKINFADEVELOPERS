@@ -429,6 +429,89 @@
                 margin-left: 250px;
             }
         }
+        
+        #tips {
+            margin: 20px auto;
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            transition: 0.3s ease;
+        }
+        
+        #tips .card-header {
+            font-weight: 600;
+            font-size: 1.1rem;
+            background: #f35b04;
+            color: white;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        
+        #tips .card-body {
+            padding: 15px 20px;
+        }
+        
+        #tips .btn-custom {
+            color: white;
+            border: none;
+        }
+        
+        @media (max-width: 768px) {
+            #tips .card-body {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: left;
+            }
+            #tips .tip-buttons {
+                margin-top: 12px;
+                text-align: left;
+            }
+            #tips .tip-buttons button {
+                width: 48%;
+                font-size: 0.9rem;
+            }
+            #tips .tip-buttons #next-tip {
+                margin-left: 4%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #tips .card-header {
+                font-size: 1rem;
+            }
+            #tips .tip-buttons button {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            #tips .tip-buttons #next-tip {
+                margin-left: 0;
+            }
+        }
+        
+        .card-body {
+            overflow-x: auto;
+        }
+        
+        .analysis-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        .analysis-table th,
+        .analysis-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            white-space: nowrap;
+        }
+        
+        @media (max-width: 768px) {
+            .analysis-table th,
+            .analysis-table td {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 
@@ -452,8 +535,8 @@
     </div>
 
     <div class="main-content" id="main-content">
-        <div class="container my-4">
-            <div class="hero" id="hero">
+        <div class="container-fluid my-4">
+            <div class="hero" id="hero" style="text-align: left;">
                 <h1>📊 Analisis Keuangan</h1>
                 <p>Ringkasan lengkap kondisi keuangan Anda saat ini</p>
             </div>
@@ -571,21 +654,7 @@
                 </div>
             </div>
 
-            <div class="card" id="tips-card">
-                <div class="card-header">
-                    <i class="fas fa-lightbulb"></i> Tips Finansial untuk Anda
-                </div>
-                <div class="card-body d-flex align-items-center justify-content-between">
-                    <div style="flex:1; padding-right:12px;">
-                        <p id="analysis-tip" style="font-weight:500; font-size:1rem; margin-bottom:6px;">Memuat tips...</p>
-                        <small id="analysis-tip-source" class="text-muted"></small>
-                    </div>
-                    <div style="min-width:160px; text-align:right;">
-                        <button class="btn btn-outline-secondary btn-sm" id="prev-analysis-tip"><i class="fas fa-chevron-left"></i></button>
-                        <button class="btn btn-custom btn-sm" id="next-analysis-tip" style="margin-left:8px;">Tip Berikutnya</button>
-                    </div>
-                </div>
-            </div>
+
 
             <div class="text-center">
                 <a href="index.html" class="btn-custom">
@@ -626,7 +695,7 @@
                     text: 'Periksa langganan berulang; hentikan yang jarang dipakai untuk menghemat.',
                     source: 'Optimalisasi'
                 }, {
-                    text: 'Buat target jangka pendek dengan nominal dan tenggat waktu agar lebih realistis.',
+                    text: 'Buat target jangka pendek dengan nominal dan tanggal waktu agar lebih realistis.',
                     source: 'Perencanaan'
                 }, {
                     text: 'Alokasikan sebagian tabungan ke investasi rutin untuk memanfaatkan compounding.',
@@ -1048,6 +1117,14 @@
                 };
 
             })();
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const isLoggedIn = localStorage.getItem("isLoggedIn");
+                if (isLoggedIn !== "true") {
+                    window.location.href = "../login.html";
+                }
+            });
         </script>
 </body>
 
