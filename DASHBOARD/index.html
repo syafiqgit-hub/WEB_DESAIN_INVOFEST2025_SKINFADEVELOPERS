@@ -185,26 +185,101 @@
         }
         
         .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            position: relative;
+            background: linear-gradient(120deg, #f35b04, #f35b04, #f35b04, #da5305);
+            background-size: 400% 400%;
             color: white;
-            padding: 50px 30px;
+            padding: 60px 20px;
             text-align: center;
-            border-radius: 15px;
+            border-radius: 20px;
             margin-bottom: 40px;
-            box-shadow: 0 5px 20px var(--shadow);
-            animation: fadeInUp 0.8s ease-out;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            animation: gradientShift 10s ease infinite, fadeInUp 0.8s ease-out;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            animation: pulse 8s infinite;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
         
         .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            font-weight: 700;
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
         }
         
         .hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 30px;
+            font-size: 1.3rem;
+            opacity: 0.95;
+            font-weight: 400;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        /* animasi gradasi berganti warna */
+        
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        /* animasi cahaya lembut */
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+        /* animasi muncul dari bawah */
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Responsif buat mobile */
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 15px;
+                border-radius: 15px;
+                margin-top: 30px;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
         }
         
         .progress-section {
@@ -600,9 +675,12 @@
     <div class="main-content" id="main-content">
         <div class="container my-4">
             <div class="hero" id="hero">
-                <h1 id="greeting">Selamat Datang di Dashboard Finansial!</h1>
-                <p style="text-align: left;">Kelola keuanganmu dengan cerdas hari ini 💰</p>
+                <div class="hero-content">
+                    <h1 id="greeting">Selamat Datang di Dashboard Finansial!</h1>
+                    <p style="text-align: left;">Kelola keuanganmu dengan cerdas hari ini 💰</p>
+                </div>
             </div>
+
 
             <div class="card" id="financial-data">
                 <div class="card-header">Data Finansial Anda</div>
