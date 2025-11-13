@@ -512,6 +512,22 @@
                 height: 250px;
             }
         }
+
+        /* Android-specific overrides for hero section */
+        .android-desktop .hero h1 {
+            font-size: 2.5rem !important;
+        }
+        .android-desktop .hero p {
+            font-size: 1.2rem !important;
+        }
+        .android-desktop .progress-section {
+            flex-direction: row !important;
+            align-items: center;
+        }
+        .android-desktop .progress-item {
+            flex: 1;
+            min-width: 200px;
+        }
         
         @media (min-width: 769px) {
             .sidebar-toggle {
@@ -1008,7 +1024,6 @@
                         e.preventDefault();
                         smoothScrollToSection(href.substring(1));
                     }
-                    // Allow default navigation for non-hash links
                 });
             });
 
@@ -1021,6 +1036,9 @@
             const notificationsViewed = localStorage.getItem('notificationsViewed');
             if (notificationsViewed === 'true') {
                 document.getElementById('notification-badge').style.display = 'none';
+            }
+            if (/Android/i.test(navigator.userAgent)) {
+                document.body.classList.add('android-desktop');
             }
 
             loadData();

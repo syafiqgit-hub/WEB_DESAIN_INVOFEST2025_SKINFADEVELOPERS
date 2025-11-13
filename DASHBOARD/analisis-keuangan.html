@@ -74,21 +74,24 @@
             min-height: 100vh;
         }
 
-        .header {
+        .hero {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 30px 0;
+            padding: 50px 30px;
             text-align: center;
-            box-shadow: 0 2px 10px var(--shadow);
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px var(--shadow);
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        .header h1 {
+        .hero h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
             font-weight: 700;
         }
 
-        .header p {
+        .hero p {
             font-size: 1.1rem;
             opacity: 0.9;
             margin-bottom: 0;
@@ -268,12 +271,79 @@
             transform: scale(1.1);
         }
 
-        .back-btn {
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            transform: translateX(-100%);
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: 2px 0 10px var(--shadow);
+        }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-header h3 {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .sidebar .sidebar-header .header-logo {
+            max-width: 160px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar .sidebar-header .header-logo {
+                max-width: 220px;
+            }
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-nav a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .sidebar-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-toggle {
             position: fixed;
             top: 20px;
             left: 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -284,13 +354,19 @@
             z-index: 1001;
             box-shadow: 0 2px 10px var(--shadow);
             transition: var(--transition);
-            text-decoration: none;
-            color: var(--text-color);
         }
 
-        .back-btn:hover {
+        .sidebar-toggle:hover {
             transform: scale(1.1);
-            color: var(--text-color);
+        }
+
+        .main-content {
+            margin-left: 0;
+            transition: var(--transition);
+        }
+
+        .main-content.shifted {
+            margin-left: 250px;
         }
 
         footer {
@@ -327,26 +403,55 @@
                 padding: 20px 15px;
             }
         }
+
+        @media (min-width: 769px) {
+            .sidebar-toggle {
+                display: none;
+            }
+            .sidebar {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 250px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <a href="index.html" class="back-btn" title="Kembali ke Beranda">
-        <i class="fas fa-arrow-left"></i>
-    </a>
+    <button class="sidebar-toggle" id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
 
     <button class="dark-mode-toggle" id="dark-mode-toggle">
         <i class="fas fa-moon"></i>
     </button>
 
-    <div class="header">
-        <div class="container">
-            <h1>📊 Analisis Keuangan</h1>
-            <p>Ringkasan lengkap kondisi keuangan Anda saat ini</p>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="../assets/media/logo2.png" alt="Cerdas Finansial company logo with vibrant orange and blue colors" class="header-logo">
+            <p style="text-align: left;">Dashboard Navigasi</p>
         </div>
+        <ul class="sidebar-nav">
+            <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="#financial-data"><i class="fas fa-edit"></i> Data Finansial</a></li>
+            <li><a href="#stats"><i class="fas fa-chart-line"></i> Statistik</a></li>
+            <li><a href="#chart"><i class="fas fa-chart-bar"></i> Grafik</a></li>
+            <li><a href="#tips"><i class="fas fa-lightbulb"></i> Tips</a></li>
+            <li><a href="#goals"><i class="fas fa-bullseye"></i> Target</a></li>
+            <li><a href="#learning"><i class="fas fa-book"></i> Belajar</a></li>
+            <li><a href="#recommendations"><i class="fas fa-star"></i> Rekomendasi</a></li>
+            <li><a href="analisis-keuangan.html"><i class="fas fa-chart-pie"></i> Analisis Keuangan</a></li>
+        </ul>
     </div>
 
-    <div class="container">
+    <div class="main-content" id="main-content">
+        <div class="container my-4">
+            <div class="hero" id="hero">
+                <h1>📊 Analisis Keuangan</h1>
+                <p>Ringkasan lengkap kondisi keuangan Anda saat ini</p>
+            </div>
+
         <div class="card">
             <div class="card-header">
                 <i class="fas fa-chart-line"></i> Ringkasan Keuangan
@@ -461,7 +566,7 @@
         </div>
 
         <div class="text-center">
-            <a href="DASHBOARD/index.html" class="btn-custom">
+            <a href="index.html" class="btn-custom">
                 <i class="fas fa-tachometer-alt"></i> Lihat Dashboard Lengkap
             </a>
         </div>
@@ -494,6 +599,26 @@
                 body.setAttribute('data-theme', 'dark');
                 icon.className = 'fas fa-sun';
                 localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+
+            sidebar.classList.toggle('show');
+            mainContent.classList.toggle('shifted');
+        }
+
+        function smoothScrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
             }
         }
 
@@ -655,6 +780,20 @@
         }
 
         document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
+        document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
+
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    smoothScrollToSection(href.substring(1));
+                } else {
+                    window.location.href = href;
+                }
+            });
+        });
 
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
